@@ -1,6 +1,8 @@
 #Adagrams: Corinna & Olga -- YAY
 require_relative 'lib/adagrams'
 
+#comment 
+
 def display_welcome_message
   puts "Welcome to Adagrams!"
   puts "Let's draw 10 letters from the letter pool..."
