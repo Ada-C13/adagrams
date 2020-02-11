@@ -18,7 +18,7 @@ def display_needs_valid_input_message
   display_game_instructions
 end
 
-def display_score(score)
+def display_score(score_word)
   puts "Your submitted anagram scored #{score} points"
 end
 
@@ -37,8 +37,21 @@ end
 
 def uses_available_letters?(get_user_input, letters_in_hand)
   word_letters = Array.new(get_user_input.split(""))
-  puts word_letters.difference(letters_in_hand).empty?
+  word_letters.difference(letters_in_hand).empty?
 end 
+
+def score_word(word)
+  word_letters = Array.new(word.split(""))
+  letter_scores = {A:1, B:3, C:3, D:2, E:1, F:4, G:2, H:4, I:1, J:8, K:5, L:1, M:3, N:1, O:1, P:3, Q:10, R:1, S:1, T:1, U:1, V:4, W:4, X:8, Y:4, Z:10}
+  score = 0
+  word_letters.each do |letter|
+    #p letter.to_sym
+    score += letter_scores[letter.to_sym]
+  end
+  return score
+end
+
+#puts score_word(get_user_input)
 
 def run_game
   display_welcome_message
@@ -59,6 +72,8 @@ def run_game
       display_needs_valid_input_message
       user_input_word = get_user_input
     end
+
+    #display_score
 
     display_retry_instructions
     should_continue = get_user_input == "y"
