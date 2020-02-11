@@ -15,3 +15,15 @@ def draw_letters
   end
   tile_array.sample(10)
 end
+
+#Wave 2
+#Confirms that the user input only uses ones that are available in their hand
+def uses_available_letters? (input, letters_in_hand) #doesn't address duplicated letters
+  input.split(//).each do |letter|
+    if (letters_in_hand.include? letter.upcase) == false
+      return false
+    end
+    letters_in_hand -= [letter.upcase]
+  end
+  true
+end
