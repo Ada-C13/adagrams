@@ -1,5 +1,8 @@
 #Game for user to create words.
 
+require "csv"
+ENGLISH_DICT = CSV.read("assets/dictionary-english.csv")
+
 # Wave 1
 #Create hash with number of each tile available. Randomly sample 10.
 def draw_letters
@@ -72,3 +75,8 @@ def highest_score_from(words)
   temp_hash = {:word => high_word, :score => high_score}
 end
 
+# Wave 5
+#Checks to make sure user word is in the English dictionary
+def is_in_english_dict?(input)
+  return ENGLISH_DICT.include?([input.downcase])
+end
