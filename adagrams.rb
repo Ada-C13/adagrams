@@ -58,3 +58,20 @@ p user_2
 # p pool_final.length
 # p user_took 
 # p pool_final.sort
+
+
+# Wave 2.
+def uses_available_letters?(input, letters_in_hand)
+  input = input.split("")
+
+  letters_in_hand.each do |letter|
+    i = 0
+    if i == input.index(letter)
+      input.slice!(i)
+    end
+
+    i += 1
+  end
+
+  return input.empty?
+end
