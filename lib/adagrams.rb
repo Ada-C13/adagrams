@@ -50,3 +50,25 @@ def score_word(word)
   end
   return score_total
 end
+
+#Wave 4
+#Calculates the highest score from the words that were entered throughout this round
+def highest_score_from(words)
+  high_score = 0
+  high_word = ""
+
+  words.each do |word|
+    if score_word(word) > high_score 
+      high_score, high_word = score_word(word), word
+    elsif score_word(word) == high_score 
+      if word.length == 10 && high_word.length != 10
+        high_score, high_word = score_word(word), word
+      elsif word.length < high_word.length && high_word.length != 10
+        high_score, high_word = score_word(word), word
+      end
+    end
+  end
+
+  temp_hash = {:word => high_word, :score => high_score}
+end
+
