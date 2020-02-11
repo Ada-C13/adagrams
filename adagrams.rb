@@ -75,3 +75,37 @@ def uses_available_letters?(input, letters_in_hand)
 
   return input.empty?
 end
+
+# Wave 3 
+def score_word(word)
+
+  score_table = {
+    "1" =>  %w[A B E I O L N R S T],
+    "2" => %w[D G],
+    "3" => %w[B C M P],
+    "4" => %w[F H V W Y],
+    "5" => %w[K],
+    "8" => %w[J X],
+    "10" => %w[Q Z]
+  }
+
+  word_array = word.split("")
+  word_score = []
+
+  word_array.each do |char|
+    score_table.each do |key,value|
+      if value.include?(char)
+        word_score << key.to_i
+      end
+    end 
+  end 
+
+  calculated_points = word_score.reduce(:+)
+
+  if word_array.length >= 7 
+    calculated_points += 8 
+  end 
+
+  return calculated_points
+end 
+
