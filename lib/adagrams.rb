@@ -113,66 +113,40 @@ def score_word(word)
 end 
 
 # Wave 4:
+def highest_score_from(words)
 
-# def highest_score_from(words)
-# end
+  data = []
+  words.each do |word|
+    info = {}
+    info[:word] = word
+    info[:score] = score_word(word)
+    info[:word_length] = word.length
+    data << info
+  end
 
-# words = ["CAT", "CD", "AA"]
+  max_score_hash = data.max_by { |word_info| word_info[:score] }
+  max_score = max_score_hash[:score]
 
-# word_score_list = []
-
-# words.each do |word|
-#   word_score_list << score_word(word)
-# end
-
-# winner_index = []
-
-# word_score_list.each_with_index do |score, index|
-#   if word_score_list.max == score
-#     winner_index << index
-#   end
-# end
-
-# winning_word = {}
-
-# if winner_index.length > 1
-
-#   winner_index.each do |index_location|
-#     if words[index_location].length == 10
-#       winning_word[:word] = words[index_location]
-#       winning_word[:score] = word_score_list[index_location]
-#     end 
-#   end 
-
-  
-# end 
+  ties_candidate = data.select { |word_info| word_info[:score] == max_score }
 
 
+  if ties_candidate.length > 1
+    word_length_10_candidates = ties_candidate.select { |word_info| word_info[:word_length] == 10}
 
-# p winner_index
+    if word_length_10_candidates.length > 0
 
+      return word_length_10_candidates[0].slice(:word, :score)
+    else
+      winner = ties_candidate.min_by { |word_info| word_info[:word_length]}
 
-# p word_score_list
+      return winner.slice(:word, :score)
+    end
 
-# p word_score_list.max
+  else
+    winner = max_score_hash.slice(:word, :score)
 
-# p word_score_list.index(word_score_list.max)
-
-
-
-# ############
-
-# # words = ["CAT", "MOUSE", "MICE"]
-
-# # words_with_scores = []
-# # words.each do |word|
-# #   current_word = {}
-# #   current_word[:word] = word
-# #   current_word[:score] = score_word(word)
-# #   words_with_scores << current_word
-# # end
-
-# # p words_with_scores
-
+    return winner
+  end
+end
 
 
