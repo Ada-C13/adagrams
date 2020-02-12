@@ -87,3 +87,28 @@ def score_word(word)
   return score
 end
 
+def highest_score_from(words)
+   win = {}
+   win_word = " "
+   win_score = 0
+   words.each_with_index do |word, index|
+     current_score = score_word(word)
+      if current_score == win_score
+        if win_word.length == word.length
+          # no change
+        elsif word.length == 10
+          win_word = word
+        elsif word.length < win_word.length
+          win_word = word
+        end  
+      elsif current_score > win_score
+        win_score = current_score
+        win_word = word
+      end
+    end
+    win[:word] = win_word
+    win[:score] = win_score
+    return win
+end
+
+        
