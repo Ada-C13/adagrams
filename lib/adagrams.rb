@@ -1,3 +1,5 @@
+require 'csv'
+
 def draw_letters
   pool = {
     "a" => 9,
@@ -39,10 +41,6 @@ def draw_letters
   end
   return user_letters
 end
-
-# player_letters = draw_letters
-# puts player_letters
-# player_input = gets.chomp
 
 def uses_available_letters?(input, letters_in_hand)
   input_letters = input.split(//).sort
@@ -98,6 +96,25 @@ def score_word(word)
   return score.sum
 end
 
+def tiebreaker(winning_words, results)
+  winner = {}
+  shortest_word = winning_words.min_by{|word| word.length}
+  winning_words.each do |word|
+    if word.length > 9
+      winner[:word] = word
+      winner[:score] = results[winning_words[0]]
+      return winner
+    end
+  end
+  winning_words.each do |word|
+    if word.length == shortest_word.length
+      winner[:word] = word
+      winner[:score] = results[winning_words[0]]
+      return winner
+    end
+  end
+end
+
 def highest_score_from(words)
   results = {}
   scores = []
@@ -113,23 +130,9 @@ def highest_score_from(words)
       winning_words << word
     end
   end
-  shortest_word = winning_words.min_by{|word| word.length}
   if winning_words.length > 1
-    winning_words.each do |word|
-      if word.length > 9
-        winner[:word] = word
-        winner[:score] = results[winning_words[0]]
-        return winner
-
-      end
-    end
-    winning_words.each do |word|
-      if word.length == shortest_word.length
-        winner[:word] = word
-        winner[:score] = results[winning_words[0]]
-        return winner
-      end
-    end
+      winner = tiebreaker(winning_words, results)
+      return winner
   else
     winner[:word] = winning_words[0]
     winner[:score] = results[winning_words[0]]
@@ -137,9 +140,12 @@ def highest_score_from(words)
   end
 end
 
-highest_score_from(["this", "is", "a", "xx", "wwj"])
-
-# score = score_word("discombobulated")
-# puts score
-# true_or_false = uses_available_letters?(player_input, player_letters)
-# puts true_or_false
+def is_in_english_dict?(input)
+  file = File.open("assets/dictionary-english.csv")
+  dictionary = file.readlines.map(&:chomp)
+  if dictionary.include?(input.downcase)
+    return true
+  else
+    return false
+  end
+end

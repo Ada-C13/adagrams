@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/reporters'
 require 'minitest/skip_dsl'
+require 'csv'
 
 require_relative '../lib/adagrams'
 
@@ -177,5 +178,14 @@ describe 'Adagrams' do
       expect(best_word[:word]).must_equal words.first
       expect(best_word[:score]).must_equal 18
     end
+  end
+  it 'Will verify that the given word is present in the english dictionary' do
+    word = "Word"
+
+    expect(is_in_english_dict?(word)).must_equal true
+
+    word = "aaaaaaaa"
+
+    expect(is_in_english_dict?(word)).must_equal false
   end
 end
