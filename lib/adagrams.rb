@@ -47,21 +47,8 @@ end
 # p draw_letters
 
 def uses_available_letters?(input, letters_in_hand)
-
-  #   input.each_char do |letter|
-  #     taken_letters = letters_in_hand.map do |lee|
-  #       p taken_letters
-  #       if taken_letters.include?(letter)
-  #         letters_in_hand.delete(letter)
-  #       else
-  #         return false
-  #       end
-  #     end
-  #   return true
-  #   end
-  # end
-
-  unused_letters = letters_in_hand
+  
+  unused_letters = letters_in_hand[0..-1]
 
   input.each_char do |letter|
     if unused_letters.include?(letter)
@@ -119,13 +106,23 @@ def highest_score_from(words)
       highest_score_word = word
     elsif score_word(word) == highest_score
       if word.length == highest_score_word.length && word.length == 10
+
         #do something  
-      elsif word.length == 10 || highest_score_word.length
+      elsif word.length == 10 
+        highest_score_word = word
+        highest_score = score_word(word)
+        #we will take the 10th length word
+      elsif word.length < highest_score_word.length && highest_score_word.length != 10
+        highest_score_word = word
+        highest_score = score_word(word)
+      end
     end
  end
  return {word: highest_score_word, score: highest_score}
 end
- p highest_score_from(["je", "niki", "dee", "zxjoi"])
+
+
+ p highest_score_from(['AAAAAAAAAA', 'BBBBBB'])
 
 
 
