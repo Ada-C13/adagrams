@@ -108,19 +108,40 @@ def highest_score_from(words)
 		words_with_scores.push({:word => word, :score => score_word(word)})
 	end 
 
-	# get highest score #
-	# run through hash & see 
-	#		if score appears more than once
-	# 		write into new array
+	highest_score = words_with_scores.max_by do |index|
+		index[:score]
+	end
+
+	tied_scores = []
+	words_with_scores.each do |word|
+		if word[:score] == highest_score[:score]
+			tied_scores << word
+		end
+	end
+
+	shortest_word = tied_scores.min_by do |index|
+		index[:word].length
+	end
+
+	puts shortest_word
+
+	winner = ''
+
+	tied_scores.each do |tied|
+		if tied[:word].length == 10 
+			return tied
+		elsif tied[:word].length == shortest_word[:word].length
+			return tied
+		else
+			next
+		end
+	end
 	
 	# check if any length == 10
 	#	else find shortest word.length
 	# if multiple are shortest
 	#		take first
 
-	# shortest_word = words_with_scores.min_by do |index|
-	# 	index[:word].length
-	# end
 
 	# highest_score = words_with_scores.max_by(5) do |index|
 	# # 	if index[:word].length == 10
@@ -154,14 +175,11 @@ def highest_score_from(words)
 		# 	else the word that occurs first (if length and score are equal)
 	# end
 
-
-	puts highest_score
-
 	# return {:word => "word",
 	# :score => 0}
 end
 
-highest_score_from(["banana", "dog", "potato"])
+highest_score_from(["MMMM", "WWW"])
 
 # In the case of tie in scores, use these tie-breaking rules:
 # prefer the word with the fewest letters...
