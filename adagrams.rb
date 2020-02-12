@@ -81,18 +81,3 @@ def highest_score_from(words)
 
   return {word: highest_word, score: highest_scored}
 end
-
-drawn_hand = draw_letters
-
-user_word = 'o'
-
-validity = uses_available_letters?(user_word, drawn_hand)
-
-result = highest_score_from(['alicia', 'jestica', 'jessica', 'jestica', 'becca'])
-puts result
-
-score = 0
-
-if validity == true
-  score = score_word (user_word)
-end
