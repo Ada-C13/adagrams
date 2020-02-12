@@ -30,4 +30,31 @@ def uses_available_letters?(input, letter_in_hand)
   
 end
 
+def score_word(word)
+  letter_values = word.upcase.split("").map do |letter|
+    case letter
+    when "A", "E", "I", "O", "U", "L", "N", "R", "S", "T"
+      1
+    when "D", "G"
+      2
+    when "B", "C", "M", "P"
+      3
+    when "F", "H", "V", "W", "Y"
+      4
+    when "K"
+      5
+    when "J", "X"
+      8
+    when "Q", "Z"
+      10
+    end
+  end
+  
+  if word.length >= 7 && word.length <= 10
+    letter_values << 8
+  end
+  
+  return letter_values.sum
+end
+
 
