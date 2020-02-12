@@ -41,14 +41,35 @@ puts drawn_letters.join(', ')
 puts "Please provide a word that only uses the letters from the letter bank: "
 test_word = gets.chomp
 
+# method to check whether word by user is in drawn letters
 def uses_available_letters? (input, letters_in_hand)
   input = input.upcase.chars
-  is_valid =
-  input.all? do |input| 
-    letters_in_hand.include?(input) 
+  # make copy of drawn letters
+  dl_copy = letters_in_hand.dup
+
+  # if letter of input = letter in drawn letters, remove letter in drawn letters
+  # continue to compare rest of letters to drawn letters
+  # times_true array used to determine if word is valid
+  times_true = []
+  input.each do |letter|
+    if dl_copy.include?(letter) == true
+      dl_copy.delete_at(dl_copy.index(letter))
+      times_true << "true"
+    else
+      times_true << "false"
+    end
   end
+
+  if times_true.count("true") == input.length
+    is_valid = true
+  else
+    is_valid = false
+  end
+
   return is_valid
+
 end
 
-
 puts uses_available_letters?(test_word, drawn_letters)
+
+# Wave (3)
