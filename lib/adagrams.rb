@@ -27,12 +27,13 @@ end
 
 # Wave 2
 # Verifies that input is available for play
-def uses_available_letters? (input, letters_in_hand)
+def uses_available_letters? (input, letters_in_hand) 
+  letters_to_check = letters_in_hand.dup
   input.split(//).each do |letter|
-    if (letters_in_hand.include? letter.upcase) == false
+    if (letters_to_check.include? letter.upcase) == false
       return false
     end
-    letters_in_hand -= [letter.upcase]
+    letters_to_check.delete_at(letters_to_check.index(letter.upcase))
   end
   true
 end
