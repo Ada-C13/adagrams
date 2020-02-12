@@ -27,7 +27,7 @@ end
 
 # Wave 2
 # Verifies that input is available for play
-def uses_available_letters? (input, letters_in_hand) 
+def uses_available_letters? input, letters_in_hand
   letters_to_check = letters_in_hand.dup
   input.split(//).each do |letter|
     if (letters_to_check.include? letter.upcase) == false
@@ -35,14 +35,15 @@ def uses_available_letters? (input, letters_in_hand)
     end
     letters_to_check.delete_at(letters_to_check.index(letter.upcase))
   end
-  true
+  return true
 end
 
 # Wave 3
 # Calculates score for word submitted handling special cases
-def score_word(word)
+def score_word word
   score_hash = {
-    A: 1, E: 1, I: 1, O: 1, U: 1, L: 1, N: 1, R: 1, S: 1, T: 1,
+    A: 1, E: 1, I: 1, O: 1, U: 1, 
+    L: 1, N: 1, R: 1, S: 1, T: 1,
     D: 2, G: 2,
     B: 3, C: 3, M: 3, P: 3,
     F: 4, H: 4, V: 4, W: 4, Y: 4,
@@ -62,8 +63,19 @@ def score_word(word)
 end
 
 # Wave 4
+
+def tiebreaker current_word, best_word
+  if current_word.length == 10 && best_word.length != 10
+    current_word
+  elsif current_word.length < best_word.length && best_word.length != 10
+    current_word
+  else 
+    best_word
+  end
+end
+
 # Calculates the highest score from submitted words
-def highest_score_from(words)
+def highest_score_from words
   high_score = 0
   high_word = ""
 
@@ -71,19 +83,16 @@ def highest_score_from(words)
     if score_word(word) > high_score 
       high_score, high_word = score_word(word), word
     elsif score_word(word) == high_score 
-      if word.length == 10 && high_word.length != 10
-        high_score, high_word = score_word(word), word
-      elsif word.length < high_word.length && high_word.length != 10
-        high_score, high_word = score_word(word), word
-      end
+      high_score = score_word(tiebreaker(word, high_word))
+      high_word = tiebreaker(word, high_word)
     end
   end
 
-  temp_hash = {:word => high_word, :score => high_score}
+  {:word => high_word, :score => high_score}
 end
 
 # Wave 5
 # Checks for word to be in dictionary
-def is_in_english_dict?(input)
+def is_in_english_dict? input
   return ENGLISH_DICT.include?([input.downcase])
 end
