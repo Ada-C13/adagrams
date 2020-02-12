@@ -123,9 +123,12 @@ def highest_score_from(words)
 		index[:word].length
 	end
 
-	puts shortest_word
+	tied_scores.sort_by! do |tied|
+		-tied[:word].length
+	end
 
-	winner = ''
+	puts tied_scores
+
 
 	tied_scores.each do |tied|
 		if tied[:word].length == 10 
@@ -179,7 +182,7 @@ def highest_score_from(words)
 	# :score => 0}
 end
 
-highest_score_from(["MMMM", "WWW"])
+highest_score_from(["BBBBBB", "AAAAAAAAAA"])
 
 # In the case of tie in scores, use these tie-breaking rules:
 # prefer the word with the fewest letters...
