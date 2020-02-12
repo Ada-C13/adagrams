@@ -9,13 +9,10 @@ def draw_letters
 	return user_hand
 end
 
-p draw_letters
-
-def uses_available_letters(input, letters_in_hand)
-	split_input = input.split(//)
+def uses_available_letters?(input, letters_in_hand)
+	p split_input = input.upcase.split(//)
+	letter_check = 0
 	p letter_check = (split_input - letters_in_hand)
 	output = letter_check.empty?
 	p output
 end
-
-uses_available_letters("a", draw_letters)
