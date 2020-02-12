@@ -76,7 +76,7 @@ def run_game
     display_score(score)
 
     display_retry_instructions
-    should_continue = get_user_input == "y"
+    should_continue = get_user_input == "Y"
   end
 
   display_goodbye_message
