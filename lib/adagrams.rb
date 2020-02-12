@@ -18,20 +18,9 @@ end
 def uses_available_letters?(input, letters_in_hand)
   # Variable holding array of letters of chosen word.
   letters = input.upcase.split('')
-  # Variable tracking if the word is available.
-  is_in_hand = true
-  is_checked = []
-  letters.each do |letter|
-    if letters_in_hand.include?(letter) == false
-      is_in_hand = false
-    elsif is_checked.include?(letter)
-      is_in_hand = false
-    else
-      is_checked << letter
-    end
-  end
-
-  return is_in_hand
+  
+  check_overlap = letters_in_hand & letters
+  check_overlap == letters ? true : false
 end
 
 # Wave 3
