@@ -96,7 +96,74 @@ end
 
 score_word(word)
 
-# Returns an integer representing the number of points
-# Each letter within word has a point value. The number of points of each letter is summed up to represent the total score of word
-# Each letter's point value is described in the table below
-# If the length of the word is 7, 8, 9, or 10, then the word gets an additional 8 points
+# After several hands have been drawn, words have been submitted, checked, scored, and played, we want a way to find the highest scoring word. This method looks at the array of words and calculates which of these words has the highest score, applies any tie-breaking logic, and returns the winning word in a special data structure.
+
+# Add a method called highest_score_from in adagrams.rb. This method should have the following properties:
+
+# Has one parameter: words, which is an array of strings
+def highest_score_from(words)
+	words_with_scores = []
+
+	words.each do |word|
+		words_with_scores.push({:word => word, :score => score_word(word)})
+	end 
+
+	# get highest score #
+	# run through hash & see 
+	#		if score appears more than once
+	# 		write into new array
+	
+	# check if any length == 10
+	#	else find shortest word.length
+	# if multiple are shortest
+	#		take first
+
+	# shortest_word = words_with_scores.min_by do |index|
+	# 	index[:word].length
+	# end
+
+	# highest_score = words_with_scores.max_by(5) do |index|
+	# # 	if index[:word].length == 10
+	# 		index[:score]
+	# 	elsif words_with_scores.min_by do |index|
+	# 		p index[:word].length
+	# 		index[:score]
+	# 		end
+	# 	else
+	# 		index[:score]
+	# 	end
+	# end
+
+	
+
+	# words_with_scores.each do |word|
+	# 	if word[:word].length == 10
+	# 		highest_score = word
+	# 	elsif word[:word].length
+	# 	word.each do |k, v|
+			
+	# 	end
+
+	# end
+
+
+	# word with highest score wins
+		#if there is a tie
+		# 	word with 10 letters wins
+		# 	else then word.length that is shortest wins
+		# 	else the word that occurs first (if length and score are equal)
+	# end
+
+
+	puts highest_score
+
+	# return {:word => "word",
+	# :score => 0}
+end
+
+highest_score_from(["banana", "dog", "potato"])
+
+# In the case of tie in scores, use these tie-breaking rules:
+# prefer the word with the fewest letters...
+# ...unless one word has 10 letters. If the top score is tied between multiple words and one is 10 letters long, choose the one with 10 letters over the one with fewer tiles
+# If the there are multiple words that are the same score and the same length, pick the first one in the supplied list
