@@ -1,4 +1,5 @@
 #make the data structure for all the letters and the number of letters availble
+#wave 1:)
 
 def draw_letters
   sample = {
@@ -40,5 +41,49 @@ def draw_letters
   #display the 10 letters they have drawn
   return pool_letters.first(10)
 end
-#Since there are 12 Es but only 1 Z, it should be 12 times as likely for the user to draw an E as a Z
-puts "😎=> control, command, space"
+
+# puts "😎=> control, command, space"
+
+#wave 2
+def uses_available_letters?(input, letters_in_hand)
+  input_splitted = input.split ""
+  selected_letters = []
+  input_splitted.each do |letter|
+    if letters_in_hand.include? letter
+      selected_letters << letter
+      letters_in_hand = letters_in_hand - selected_letters
+    else
+      return false
+    end
+  end
+  return true
+end
+
+#wave 3
+def score_word(word)
+  score = {
+    "1" => %w(A E I O U L N R S T),
+    "2" => %w(D G),
+    "3" => %w(B C M P),
+    "4" => %w(F H V W Y),
+    "5" => %w(K),
+    "8" => %w(J X),
+    "10" => %w(Q Z),
+  }
+  word_splitted = word.upcase.split ""
+
+  total_score = 0
+  word_splitted.each do |letter|
+    score.each do |value, letters_with_value|
+      if letters_with_value.include? letter
+        total_score = total_score + value.to_i
+      end
+    end
+  end
+  if word_splitted.length > 7 && word_splitted.length < 10
+    total_score+=8
+  end
+  
+end
+
+
