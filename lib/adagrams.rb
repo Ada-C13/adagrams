@@ -23,5 +23,38 @@ def draw_letters
 		pool_of_letters << letter
 	end
 
-	return hand
+	return hand.sort
 end
+
+hand = draw_letters
+puts "Your hand is #{hand}."
+
+def uses_available_letters?(input, letters_in_hand)
+	lih_clone = letters_in_hand.dup
+	word = input.split('')
+ 
+	letters_match = []
+
+	word.each do |letter|
+		if lih_clone.index(letter) == nil
+			break
+		else
+			lih_clone.slice!(lih_clone.index(letter))
+			letters_match << letter
+		end
+	end
+
+	if word == letters_match
+		word.each do |letter|
+			lih_clone << letter
+		end		
+		return true
+	else
+		return false
+	end
+
+
+end
+
+puts "What is your word?"
+uses_available_letters?(gets.chomp.upcase, hand)
