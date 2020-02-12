@@ -1,6 +1,3 @@
-
-
-# p score_word("AAAAAAAz")
 # Wave 1 method: drawing 10 letters into hand
 def draw_letters 
     letter_quantities = {
@@ -39,8 +36,7 @@ def draw_letters
         end
     end
 
-    hand = letter_pool.shuffle[0..9]
-    return hand
+    return letter_pool.shuffle[0..9]
 end
 
 # Wave 2: Checks that input uses letters that are in hand
@@ -114,25 +110,22 @@ def highest_score_from(words)
 
     # no tie scenario
     if winning_words.count == 1
-        output_hash = {word: winning_words[0], score: highest_score}
-        return output_hash
+        return {word: winning_words[0], score: highest_score}
     else 
 
         # tie scenario
-        winning_words.each do |word1|
+        winning_words.each do |word|
             # determines whether word is 10 letters long
-            if word1.length == 10
-                output_hash = {word: word1, score: highest_score}
-                return output_hash
+            if word.length == 10
+                return {word: word, score: highest_score}
             end
         end
         # if there is no 10 letter word, find shortest word
-        winner = winning_words.min_by do |word2|
-            word2.length
+        winner = winning_words.min_by do |word|
+            word.length
         end 
 
-        output_hash = {word: winner, score: highest_score}
-        return output_hash 
+        return {word: winner, score: highest_score}
     end    
 end
 
