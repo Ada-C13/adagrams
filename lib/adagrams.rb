@@ -65,11 +65,51 @@ def uses_available_letters? (input, letters_in_hand)
   else
     is_valid = false
   end
-
   return is_valid
-
 end
 
 puts uses_available_letters?(test_word, drawn_letters)
 
 # Wave (3)
+# method to calculate score
+def score_word(word)
+  word = word.upcase.chars
+
+  if word.empty? == true # nil case or empty string
+    score_word = 0
+  else
+      # scoring
+      score_word = word.map do |letter|
+        case letter
+        when "A", "E", "I", "O", "U", "L", "N", "R", "S", "T"
+          1
+        when "D", "G"
+          2
+        when "B", "C", "M", "P"
+          3
+        when "F", "H", "V", "W", "Y"
+          4
+        when "K"
+          5
+        when "J", "X"
+          8
+        when "Q", "Z"
+          10
+        else
+          0
+        end
+      end
+      
+      # calculate total score
+      score_word = score_word.inject(:+)
+
+      if word.length >= 7
+        score_word = score_word + 8
+      else
+        score_word = score_word
+      end
+  end
+  return score_word 
+end
+
+puts score_word(test_word)
