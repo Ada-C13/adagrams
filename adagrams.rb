@@ -54,8 +54,6 @@ def score_word (word)
   return score
 end
 
-#a method that accepts an array of words that have been created, gets the highest score from this array. Pass each word from the array into the scoring method, returns will be inserted into an array, and for the word that is the highest score it will be reserved into a single hash with the word as the key and the score as the value. 
-
 # wave 4
 def highest_score_from(words)
   words_hash = {}
@@ -63,7 +61,6 @@ def highest_score_from(words)
   words.each do |word|
     words_hash[word] = score_word(word)
   end
-
 
   highest_word = ""
   highest_scored = 0
@@ -73,16 +70,16 @@ def highest_score_from(words)
       highest_scored = score
       highest_word = word
     elsif score == highest_scored
-      #it's a duplicate!
       case word
-      when word.length == 10 && highest_word.length != 10
-        highest_word = word
-      when highest_word.length > word.length
-        highest_word = word
+        when word.length == 10 && highest_word.length != 10
+          highest_word = word
+        when highest_word.length > word.length
+          highest_word = word
       end
     end
-    return {word: highest_word, score: highest_scored}
   end
+
+  return {word: highest_word, score: highest_scored}
 end
 
 drawn_hand = draw_letters
@@ -91,7 +88,7 @@ user_word = 'o'
 
 validity = uses_available_letters?(user_word, drawn_hand)
 
-result = highest_score_from(['alicia', 'jessica', 'jared', 'shonda', 'becca'])
+result = highest_score_from(['alicia', 'jestica', 'jessica', 'jestica', 'becca'])
 puts result
 
 score = 0
