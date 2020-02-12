@@ -42,16 +42,17 @@ def score_word(word)
 			score_count += 8
 		when "Q", "Z"
 			score_count += 10
-		when word.length >= 7
-			score_count += 8
 		end
 	end
+	score_count += 8 if word.length >= 7
 	return score_count
 end
 
-def highest_core_from(words)
-	words = Arrray.new("")
-	winning_hash = {:word => "", :score => 0}
-end
+puts score_word("xylophone")
+
+# def highest_score_from(words)
+# 	words = Array.new("")
+# 	winning_hash = {:word => "", :score => 0}
+# end
 
 
