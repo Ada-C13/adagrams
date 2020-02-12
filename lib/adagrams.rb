@@ -9,13 +9,17 @@ def draw_letters
 	return user_hand
 end
 
+
+
 def uses_available_letters?(input, letters_in_hand)
-	p split_input = input.upcase.split(//)
-	letter_check = 0
-	p letter_check = (split_input - letters_in_hand)
-	output = letter_check.empty?
-	p output
+	split_input = input.upcase.split(//)
+
+	letters_in_hand.each do |letter|
+		split_input.delete_at(split_input.index(letter)) unless split_input.index(letter).nil?
+	end
+	return split_input.empty?
 end
+
 
 def score_word(word)
 	score_count = 0
@@ -45,4 +49,5 @@ def score_word(word)
 	return score_count
 end
 
-p score_word("hello")
+
+
