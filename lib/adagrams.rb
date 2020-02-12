@@ -53,8 +53,44 @@ def uses_available_letters?(input, letters_in_hand)
 		return false
 	end
 
-
 end
 
 puts "What is your word?"
-uses_available_letters?(gets.chomp.upcase, hand)
+word = gets.chomp.upcase
+uses_available_letters?(word, hand)
+
+# We want a method that returns the score of a given word as defined by the Adagrams game.
+# Name this method score_word in adagrams.rb. This method should have the following properties:
+
+# Has one parameter: word, which is a string of characters
+def score_word(word)
+	score_chart = {
+		1 => ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"],
+		2 => ["D", "G"], 
+		3 => ["B", "C", "M", "P"],
+		4 => ["F", "H", "V", "W", "Y"],
+		5 => ["K"],
+		6 => ["J", "X"],
+		7 => ["Q", "Z"]
+	}
+
+	word = word.split('')
+
+	score = 0
+	word.each do |letter|
+		score_chart.each do |value, array|
+			if array.include?(letter)
+				score = score + value.to_i
+			end
+		end
+	end
+	# p score
+
+end
+
+score_word(word)
+
+# Returns an integer representing the number of points
+# Each letter within word has a point value. The number of points of each letter is summed up to represent the total score of word
+# Each letter's point value is described in the table below
+# If the length of the word is 7, 8, 9, or 10, then the word gets an additional 8 points
