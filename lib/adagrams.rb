@@ -61,8 +61,30 @@ end
 
 
 def score_word(word)
+  word = word.upcase
+  score = 0
  word.chars.each do |letter|
-  
- 
- end
+  case letter
+  when "D","G"
+    score += 2
+  when "B", "C", "M", "P"
+    score += 3
+  when "F", "H", "V", "W", "Y"
+    score += 4
+  when "K"
+    score += 5
+  when "J", "K"
+    score += 8
+  when "Q", "Z"
+    score += 10
+  else
+    score += 1
+  end
 end
+if word.chars.length > 6
+  score += 8 
+end
+return score
+end
+
+puts score_word("POOL")
