@@ -91,7 +91,7 @@ def score_word(word)
 		score += 8
 	end
 
-	# p score
+	return score
 end
 
 score_word(word)
