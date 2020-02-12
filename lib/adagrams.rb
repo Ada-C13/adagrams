@@ -1,46 +1,7 @@
-def score_word(word)
-    letter_values = {
-        "A" => 1,
-        "B" => 3,
-        "C" => 3,
-        "D" => 2,
-        "E" => 1,
-        "F" => 4,
-        "G" => 2,
-        "H" => 4,
-        "I" => 1,
-        "J" => 8,
-        "K" => 5,
-        "L" => 1,
-        "M" => 3,
-        "N" => 1,
-        "O" => 1,
-        "P" => 3,
-        "Q" => 10,
-        "R" => 1,
-        "S" => 1,
-        "T" => 1,
-        "U" => 1,
-        "V" => 4,
-        "W" => 4,
-        "X" => 8,
-        "Y" => 4,
-        "Z" => 10
-    }
-    total_score = 0
-    word.upcase.split(//).each do |letter|
-        total_score += letter_values[letter]
-    end
 
-    if word.length > 6
-        total_score += 8
-    end
-
-    return total_score    
-end
 
 # p score_word("AAAAAAAz")
-
+# Wave 1 method: drawing 10 letters into hand
 def draw_letters 
     letter_quantities = {
         "A" => 9,
@@ -82,6 +43,7 @@ def draw_letters
     return hand
 end
 
+# Wave 2: Checks that input uses letters that are in hand
 def uses_available_letters?(input, letters_in_hand)
     input_array = input.upcase.split(//)
     input_array.each do |letter|
@@ -92,9 +54,52 @@ def uses_available_letters?(input, letters_in_hand)
     end
     return true
 end
+
+# Wave 3: return a score for input word
+def score_word(word)
+    letter_values = {
+        "A" => 1,
+        "B" => 3,
+        "C" => 3,
+        "D" => 2,
+        "E" => 1,
+        "F" => 4,
+        "G" => 2,
+        "H" => 4,
+        "I" => 1,
+        "J" => 8,
+        "K" => 5,
+        "L" => 1,
+        "M" => 3,
+        "N" => 1,
+        "O" => 1,
+        "P" => 3,
+        "Q" => 10,
+        "R" => 1,
+        "S" => 1,
+        "T" => 1,
+        "U" => 1,
+        "V" => 4,
+        "W" => 4,
+        "X" => 8,
+        "Y" => 4,
+        "Z" => 10
+    }
+    total_score = 0
+    word.upcase.split(//).each do |letter|
+        total_score += letter_values[letter]
+    end
+
+    if word.length > 6
+        total_score += 8
+    end
+
+    return total_score    
+end
     
 # p uses_available_letters?("dOgoz", ["D", "O", "G", "O"])
 
+# Wave 4: Outputs winning word and score
 def highest_score_from(words)
     highest_score = 0
     winning_words = []
@@ -107,20 +112,25 @@ def highest_score_from(words)
         end
     end
 
+    # no tie scenario
     if winning_words.count == 1
         output_hash = {word: winning_words[0], score: highest_score}
         return output_hash
     else 
+
+        # tie scenario
         winning_words.each do |word1|
+            # determines whether word is 10 letters long
             if word1.length == 10
                 output_hash = {word: word1, score: highest_score}
                 return output_hash
             end
         end
-
+        # if there is no 10 letter word, find shortest word
         winner = winning_words.min_by do |word2|
             word2.length
         end 
+
         output_hash = {word: winner, score: highest_score}
         return output_hash 
     end    
