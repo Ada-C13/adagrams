@@ -9,7 +9,6 @@ def draw_letters
   10.times do
     hand << letters_pool.sample
   end
-
   return hand
 end
 
@@ -18,7 +17,6 @@ end
 def uses_available_letters?(input, letters_in_hand)
   # Variable holding array of letters of chosen word.
   letters = input.upcase.split('')
-
   check_overlap = letters_in_hand & letters
   check_overlap == letters ? true : false
 end
@@ -48,13 +46,11 @@ def score_word(word)
       end
     end
   end
-
   # If the chosen word is greater in length than 7 but less than 10,
   # 8 more points will be added to their score.
   if letters.length >= 7 && letters.length <= 10
     score += 8
   end
-
   return score
 end
 
@@ -63,13 +59,12 @@ end
 def highest_score_from(words)
   # Variable tracking each word and its respective score.
   words_hash = {}
+  highest_word = "" # Variable tracking word that scores the highest.
+  highest_scored = 0 # Variable tracking the highest score.
 
   words.each do |word|
     words_hash[word] = score_word(word)
   end
-
-  highest_word = "" # Variable tracking word that scores the highest.
-  highest_scored = 0 # Variable tracking the highest score.
 
   words_hash.each do |word, score|
     case
@@ -87,6 +82,5 @@ def highest_score_from(words)
         highest_word = word
     end
   end
-
   return {word: highest_word, score: highest_scored}
 end
