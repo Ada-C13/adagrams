@@ -65,40 +65,24 @@ def highest_score_from(words)
   end
 
 
-  highest_word = []
+  highest_word = ""
   highest_scored = 0
 
-
-#in case of ties:
-  if words_hash == words_hash.invert.invert #will invert the key and value pairs of hash twice, thus eliminiting any duplicate values.
-    words_hash.each do |word, score|
-      if score == highest_scored
-
-      else
-        highest_scored = score
+  words_hash.each do |word, score|
+    if score > highest_scored 
+      highest_scored = score
+      highest_word = word
+    elsif score == highest_scored
+      #it's a duplicate!
+      case word
+      when word.length == 10 && highest_word.length != 10
+        highest_word = word
+      when highest_word.length > word.length
+        highest_word = word
       end
-  end
-
-
-  # words_hash.each do |word, score|
-  #   if highest_word == word
-  #     unless highest_word.length == 10 || highest_word.length
-  #       highest_word = word
-  #     end
-  #     if word.length
-  #   end
-  # end
-
-
-
-
-  words_hash.each do |key, value|
-    if value == highest_scored
-      highest_word << key
     end
+    return {word: highest_word, score: highest_scored}
   end
-
-  return {word: highest_word, score: highest_scored}
 end
 
 drawn_hand = draw_letters
