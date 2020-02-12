@@ -49,5 +49,9 @@ def score_word(word)
 	return score_count
 end
 
+def highest_core_from(words)
+	words = Arrray.new("")
+	winning_hash = {:word => "", :score => 0}
+end
 
 
