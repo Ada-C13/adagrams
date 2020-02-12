@@ -16,3 +16,33 @@ def uses_available_letters?(input, letters_in_hand)
 	output = letter_check.empty?
 	p output
 end
+
+def score_word(word)
+	score_count = 0
+	
+	split_input = word.upcase.split(//)
+
+	split_input.each do |letter|
+		case letter
+		when "A", "E", "I", "O", "U", "L", "N", "R", "S", "T"
+			score_count += 1
+		when "D", "G"
+			score_count += 2
+		when "B", "C", "M", "P"
+			score_count += 3
+		when "F", "H", "V", "W", "Y"
+				score_count += 4
+		when "K"
+			score_count += 5
+		when "J", "X"
+			score_count += 8
+		when "Q", "Z"
+			score_count += 10
+		when word.length >= 7
+			score_count += 8
+		end
+	end
+	return score_count
+end
+
+p score_word("hello")
