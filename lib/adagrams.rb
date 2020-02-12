@@ -33,5 +33,22 @@ def draw_letters
     letter.join(', ')
     return drawn_letters = letters
 end
-draw_letters
-print draw_letters.join(', ')
+drawn_letters = draw_letters
+puts drawn_letters.join(', ')
+
+
+# Wave (2)
+puts "Please provide a word that only uses the letters from the letter bank: "
+test_word = gets.chomp
+
+def uses_available_letters? (input, letters_in_hand)
+  input = input.upcase.chars
+  is_valid =
+  input.all? do |input| 
+    letters_in_hand.include?(input) 
+  end
+  return is_valid
+end
+
+
+puts uses_available_letters?(test_word, drawn_letters)
