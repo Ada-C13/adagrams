@@ -70,22 +70,28 @@ def score_word(word)
 		3 => ["B", "C", "M", "P"],
 		4 => ["F", "H", "V", "W", "Y"],
 		5 => ["K"],
-		6 => ["J", "X"],
-		7 => ["Q", "Z"]
+		8 => ["J", "X"],
+		10 => ["Q", "Z"]
 	}
 
 	word = word.split('')
+	
+	# p word
 
 	score = 0
 	word.each do |letter|
 		score_chart.each do |value, array|
-			if array.include?(letter)
-				score = score + value.to_i
+			if array.include?(letter.upcase)
+				score += value.to_i
 			end
 		end
 	end
-	# p score
 
+	if word.length > 6 && word.length < 11
+		score += 8
+	end
+
+	# p score
 end
 
 score_word(word)
