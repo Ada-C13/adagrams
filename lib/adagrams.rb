@@ -1,3 +1,6 @@
+require 'csv'
+require 'awesome_print'
+
 def draw_letters
 	letter_pool = []
 	letter_choices = Hash( A: 9, B: 2, C: 2, D:4, E: 12, F: 2, G: 3, H: 2, I: 9, J: 1, K: 1, L: 4, M: 2, N: 6, O: 8, P: 2, Q: 1, R: 6, S: 4, T: 6, U: 4, V: 2, W: 2, X: 1, Y: 2, Z: 1)
@@ -92,3 +95,11 @@ def highest_score_from(words)
 	end
 	return winning_hash = {:word => winning_word, :score => highest_score}
 end
+
+def is_in_english_dict?(input)
+	dictionary = CSV.read('assets/dictionary-english.csv', headers: true)
+	return	dictionary.include?(input)
+
+end
+
+p is_in_english_dict?("hello")
