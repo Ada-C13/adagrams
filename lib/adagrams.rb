@@ -35,15 +35,10 @@ def uses_available_letters?(input, letters_in_hand)
 	lih_clone = letters_in_hand.dup
 	word = input.split('')
  
-	letters_match = []
-
-	word.each do |letter|
-		if lih_clone.index(letter) == nil
-			break
-		else
-			lih_clone.slice!(lih_clone.index(letter))
-			letters_match << letter
-		end
+	letters_match = word.map do |letter|
+		break if lih_clone.index(letter) == nil
+		lih_clone.slice!(lih_clone.index(letter))
+		letter
 	end
 
 	if word == letters_match
@@ -79,16 +74,12 @@ def score_word(word)
 	score = 0
 	word.each do |letter|
 		score_chart.each do |value, array|
-			if array.include?(letter.upcase)
-				score += value.to_i
-			end
+			score += value.to_i if array.include?(letter.upcase)
 		end
 	end
 
-	if word.length > 6 && word.length < 11
-		score += 8
-	end
-
+	score += 8 if word.length > 6 && word.length < 11
+	
 	return score
 end
 
@@ -123,7 +114,6 @@ def highest_score_from(words)
 	end
 
 	puts tied_scores
-
 
 	tied_scores.each do |tied|
 		if tied[:word].length == 10 
