@@ -1,8 +1,11 @@
+require 'csv'
+
 # A method to build a hand of 10 letters for the user.
 def draw_letters
   # Letters      A  B  C  D  E   F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z
   letter_dist = [9, 2, 2, 4, 12, 2, 3, 2, 9, 1, 1, 4, 2, 6, 8, 2, 1, 6, 4, 6, 4, 2, 2, 1, 2, 1]
   hand_size = 10
+  # ASCII table number for a
   letter_a_offset = 65
   
   letter_pool = letter_dist.map.with_index { |dist, index| (index + letter_a_offset).chr * dist }
@@ -73,16 +76,10 @@ def highest_score_from(words)
   return results
 end
 
-# def is_in_english_dict?(input)
-
-  #   if
-  #     true
-  #   else
-  #     false
-  #   end
-
-  #   returns
-
-# end
+def is_in_english_dict?(input)
+  dict_path = File.join(File.dirname(__FILE__), "../assets/dictionary-english.csv")
+  dictionary = CSV.read(dict_path, headers: true).map { |row| row[0] }
+  return dictionary.include?(input)
+end
 
 
