@@ -108,19 +108,20 @@ def highest_score_from(words)
 		shortest_length = word.length
 	end
 
-	# tied_scores.sort_by! do |tied|
-	# 	-tied[:word].length
+	# tied_scores.sort_by! do |word, score|
+	# 	-word.length
 	# end
 
-	# tied_scores.each do |tied|
-	# 	if tied[:word].length == 10 
-	# 		return tied
-	# 	elsif tied[:word].length == shortest_word[:word].length
-	# 		return tied
-	# 	else
-	# 		next
-	# 	end
-	# end
+	tied_scores.each do |word, score|
+		hash = {word => score}
+		if word.length == 10 
+			return hash
+		elsif word.length == shortest_length
+			return hash
+		else
+			next
+		end
+	end
 
 end
 
