@@ -12,6 +12,9 @@ def create_letter_pool(letter, quantity)
 end
 letter_pool_array = create_letter_pool(letter, quantity)
 
+
+
+
 # Wave (1)
 # Method to draw 10 random letters
 def draw_letters
@@ -112,4 +115,106 @@ def score_word(word)
   return score_word 
 end
 
-puts score_word(test_word)
+# hash to hold words and scores
+# master array for Wave 4 -> words
+words = []
+scores = []
+
+words << test_word
+
+score = score_word(test_word)
+scores << score
+
+# Do ya want to play again prompt
+# put as method
+# repeat through game wave 1 - 3
+
+# use until loop/while 
+# use keyword arguments? example, how many times would you like to play again?
+# def play_again (how_many_times: )
+puts "Would you like to play again? Enter y to play again."
+answer = gets.chomp
+
+while answer == "y"
+  # Wave 1
+  drawn_letters = draw_letters
+  puts drawn_letters.join(', ')
+
+  puts "Please provide a word that only uses the letters from the letter bank: "
+  test_word = gets.chomp
+
+  # Wave 2
+  puts uses_available_letters?(test_word, drawn_letters)
+
+  # Wave 3
+  
+  words << test_word
+  
+  score = score_word(test_word)
+  scores << score
+
+  # Prompt again
+  puts "Would you like to play again? Enter y to play again."
+  answer = gets.chomp
+
+end
+
+print words
+# Wave (4)
+# play multiple times
+# array of words
+
+# score_tracker = {game1:{word, score}, game2:{word,score}}
+
+
+def highest_score_from (words)
+  # hash with all words and scores
+  all_words_score = words.map do |word|
+    score = score_word(word)
+    {
+      :word => word,
+      :score => score
+    }
+  end
+  
+  # highest score calculation
+  highest_score = 0
+  highest_word = ""
+  best_word = {}
+  all_words_score.each do |word|
+    if word[:score] > highest_score
+        highest_score = word[:score]
+        highest_word = word[:word] 
+    else word[:score] == highest_score
+      # tie rules
+      # `conditionals` galore:
+      # prefer word with fewest letters
+      # if word has 10 letters, top word is the one with more tiles wins
+      # multiple words of same length, pick first one
+      if (word[:word]).length == 10
+        highest_score = word[:score]
+        highest_word = word[:word]
+      elsif ((word[:word]).length < (highest_word.length)) && ((word[:word]).length != 10)
+        highest_score = word[:score]
+        highest_word = word[:word]
+      # else (word[:word]).length < highest_word.length
+      #   highest_word = word[:word]
+      elsif (word[:word]).length == (highest_word.length)
+        highest_score = highest_score
+        highest_word = highest_word
+      else
+        highest_score = highest_score
+        highest_word = highest_word
+      end
+    end
+
+  end
+  
+  best_word[:word] = "#{highest_word}"
+  best_word[:score] = highest_score
+
+  return best_word
+
+end
+
+puts highest_score_from(words)
