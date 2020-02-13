@@ -1,3 +1,7 @@
+# Nikki Vaughan
+# Jetmire Bajrami
+# last modified on 2/13/20
+
 require 'csv'
 
 def draw_letters
