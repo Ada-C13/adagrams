@@ -48,11 +48,25 @@ def score_word(word)
 	return score_count
 end
 
-puts score_word("xylophone")
+def highest_score_from(words)
+	word_score_array = Array.new
+	word_score_hash = Hash.new
+	highest_score = 0
+	winning_word = ""
+	words.each do |word|
+		score = score_word(word)
+		word_score_hash[word] = score
+		word_score_array << word_score_hash
+	end
 
-# def highest_score_from(words)
-# 	words = Array.new("")
-# 	winning_hash = {:word => "", :score => 0}
-# end
+	word_score_array = word_score_array.uniq
+	
+	word_score_array.each do |check|
+		highest_score = check.values.max
+		winning_word = check.key(highest_score)
+	end
 
+	return winning_hash = {:word => winning_word, :score => highest_score}
+end
 
+p highest_score_from(['sharpen','pen', 'sharp'])
