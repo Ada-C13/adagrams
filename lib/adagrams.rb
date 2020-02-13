@@ -84,8 +84,55 @@ def run_game
     display_retry_instructions
     should_continue = get_user_input == "y"
   end
-
+  return user_input_word
   display_goodbye_message
 end
 
-run_game
+string1 = run_game
+
+def score_word(string)
+letters = string.split(//)
+upcase_letters = letters.map(&:upcase)
+print upcase_letters
+score_pool = {["A", "E", "I", "O", "U", "L"," N", "R", "S", "T"]=>1,["D", "G"]=>2,["B", "C", "M", "P"]=>3,["F", "H", "V", "W", "Y"]=>4,["K"]=>5,["J", "X"]=>8,["Q", "Z"]=>10}
+#puts score_pool
+
+arr=[]
+score_pool.each do |k,v| 
+  #print " k #{k}"
+    upcase_letters.each do |l| if k.include?(l)
+    arr.push score_pool.values_at(k)
+    end
+
+  end
+end
+        
+print "print arr #{arr} "
+#score_pool.map {|k,v| if }
+final_score = arr
+
+score = final_score.transpose.map{|arr| arr.inject{|sum, element| sum+element}}
+
+if string.length >=7 && string.length <=10
+score[0] += 8
+end
+
+return score[0]
+end
+
+
+score = score_word(string1)
+
+puts "score is: #{score}"
+
+#wave 4
+
+# def highest_score_from(arr)
+#   word_score ={}
+#  arr.each do  |item|
+# word_score.push word=>item
+# end
+# puts word_score
+# end
+  
+  
