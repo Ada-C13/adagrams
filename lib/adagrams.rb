@@ -88,45 +88,42 @@ score_word(word)
 ## WAVE 4 ##
 
 def highest_score_from(words)
-	words_with_scores = []
+	words_with_scores = {}
 
 	words.each do |word|
-		words_with_scores.push({:word => word, :score => score_word(word)})
+		words_with_scores[word] = score_word(word)
 	end 
 
-	highest_score = words_with_scores.max_by do |index|
-		index[:score]
+	highest_score = words_with_scores.max_by do |word, score|
+		score
 	end
 
-	tied_scores = []
-	words_with_scores.each do |word|
-		if word[:score] == highest_score[:score]
-			tied_scores << word
-		end
+	tied_scores = {}
+	words_with_scores.each do |word, score|
+		tied_scores[word] = score if score == highest_score[1]
 	end
 
-	shortest_word = tied_scores.min_by do |index|
-		index[:word].length
+	shortest_length = 0
+	tied_scores.min_by do |word, score|
+		shortest_length = word.length
 	end
 
-	tied_scores.sort_by! do |tied|
-		-tied[:word].length
-	end
+	# tied_scores.sort_by! do |tied|
+	# 	-tied[:word].length
+	# end
 
-	puts tied_scores
-
-	tied_scores.each do |tied|
-		if tied[:word].length == 10 
-			return tied
-		elsif tied[:word].length == shortest_word[:word].length
-			return tied
-		else
-			next
-		end
-	end
+	# tied_scores.each do |tied|
+	# 	if tied[:word].length == 10 
+	# 		return tied
+	# 	elsif tied[:word].length == shortest_word[:word].length
+	# 		return tied
+	# 	else
+	# 		next
+	# 	end
+	# end
 
 end
 
-highest_score_from(["BBBBBB", "AAAAAAAAAA"])
+highest_score_from(["potato", "banana", "dog"])
 
 ## WAVE 5 ##
