@@ -42,8 +42,6 @@ def draw_letters
   return pool_letters.first(10)
 end
 
-# puts "😎=> control, command, space"
-
 #wave 2
 def uses_available_letters?(input, letters_in_hand)
   input_splitted = input.split ""
@@ -80,9 +78,37 @@ def score_word(word)
       end
     end
   end
-  if word_splitted.length > 7 && word_splitted.length < 10
-    total_score+=8
+  if word_splitted.length >= 7 && word_splitted.length <= 10
+    total_score += 8
   end
-  
+  return total_score
 end
 
+#wave 4
+def highest_score_from(words)
+  word_and_score = {}
+  words.each do |word|
+    word_and_score[word] = score_word(word)
+  end
+
+  highest_score = 0
+  highest_scored_name = nil
+  word_and_score.each do |word, score|
+    if score > highest_score
+      highest_score = score
+      highest_scored_name = word
+    end
+
+    if highest_score == score
+      if highest_scored_name.length < 10 && word.length < 10 && highest_scored_name.length > word.length
+        highest_scored_name = word
+      elsif (highest_scored_name.length >= 10 || word.length >= 10) && word.length > highest_scored_name.length
+        highest_scored_name = word
+      end
+    end
+  end
+  winning_word_score = {}
+  winning_word_score[:word] = highest_scored_name
+  winning_word_score[:score] = highest_score
+  return winning_word_score
+end
