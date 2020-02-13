@@ -1,3 +1,5 @@
+require 'csv'
+
 ## WAVE 1 ##
 
 def draw_letters
@@ -26,14 +28,11 @@ def draw_letters
 	return hand.sort
 end
 
-hand = draw_letters
-puts "Your hand is #{hand}."
-
 ## WAVE 2 ##
 
 def uses_available_letters?(input, letters_in_hand)
 	lih_clone = letters_in_hand.dup
-	word = input.split('')
+	word = input.upcase.split('')
  
 	letters_match = word.map do |letter|
 		break if lih_clone.index(letter) == nil
@@ -51,10 +50,6 @@ def uses_available_letters?(input, letters_in_hand)
 	end
 
 end
-
-puts "What is your word?"
-word = gets.chomp.upcase
-uses_available_letters?(word, hand)
 
 ## WAVE 3 ##
 
@@ -82,8 +77,6 @@ def score_word(word)
 	
 	return score
 end
-
-score_word(word)
 
 ## WAVE 4 ##
 
@@ -122,3 +115,18 @@ def highest_score_from(words)
 end
 
 ## WAVE 5 ##
+
+def is_in_english_dict?(input)
+	input_array = [input]
+	
+	dictionary = CSV.read('assets/dictionary-english.csv').map do |word|
+		word
+	end
+	
+	if dictionary.include?(input_array)
+		return true
+	else
+		return false
+	end
+
+end
