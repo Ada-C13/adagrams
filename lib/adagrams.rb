@@ -88,43 +88,37 @@ score_word(word)
 ## WAVE 4 ##
 
 def highest_score_from(words)
-	words_with_scores = {}
-
-	words.each do |word|
-		words_with_scores[word] = score_word(word)
+	words_with_scores = words.map do |word|
+		{:word => word, :score => score_word(word)}
 	end 
 
-	highest_score = words_with_scores.max_by do |word, score|
-		score
+	highest_score = words_with_scores.max_by do |index|
+		index[:score]
 	end
 
-	tied_scores = {}
-	words_with_scores.each do |word, score|
-		tied_scores[word] = score if score == highest_score[1]
+	tied_scores = []
+	words_with_scores.each do |word|
+		tied_scores << word if word[:score] == highest_score[:score]
 	end
 
-	shortest_length = 0
-	tied_scores.min_by do |word, score|
-		shortest_length = word.length
+	shortest_length = tied_scores.min_by do |index|
+		index[:word].length
 	end
 
-	# tied_scores.sort_by! do |word, score|
-	# 	-word.length
-	# end
+	tied_scores.sort_by! do |tied|
+		-tied[:word].length
+	end
 
-	tied_scores.each do |word, score|
-		hash = {word => score}
-		if word.length == 10 
-			return hash
-		elsif word.length == shortest_length
-			return hash
-		else
-			next
+	tied_scores.each do |tied|
+		case tied[:word].length
+			when 10
+				return tied
+			when shortest_length[:word].length
+				return tied
+			else
+				next
 		end
 	end
-
 end
-
-highest_score_from(["potato", "banana", "dog"])
 
 ## WAVE 5 ##
