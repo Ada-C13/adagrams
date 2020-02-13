@@ -44,7 +44,6 @@ def uses_available_letters?(input, letters_in_hand)
     input_array = input.upcase.split(//)
     input_array.each do |letter|
         if input_array.count(letter) > letters_in_hand.count(letter) 
-            # puts "error"
             return false
         end
     end
@@ -92,8 +91,6 @@ def score_word(word)
 
     return total_score    
 end
-    
-# p uses_available_letters?("dOgoz", ["D", "O", "G", "O"])
 
 # Wave 4: Outputs winning word and score
 def highest_score_from(words)
@@ -129,4 +126,10 @@ def highest_score_from(words)
     end    
 end
 
-# p highest_score_from(["X", "XX", "XXX", "XXXX"])
+# Wave 5: check if input is an english word
+def is_in_english_dict?(input)
+    file = File.open("assets/dictionary-english.csv", "r")
+    dictionary = file.collect(&:chomp)
+    file.close
+    return dictionary.include?(input.downcase)
+end
