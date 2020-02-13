@@ -112,7 +112,7 @@ my_hand = draw_letters
 # Wave 4
 # method has one parameter (word)
 # returns a hash (winning word, score) the highest scoring word
-# if tied using tie-breaking method (when choosing do the followings: prefer word with fewer letters;
+# if tied using tie-breaking method (when choosing do the followings: prefer word with fewer letters ;
 # if multiple words have the same score, choose the one w/fewest letters unless one word has 10 letters, 
 # if letters and scores are the same, choose the first one you see)
 
@@ -124,14 +124,56 @@ def highest_score_from(words) # words is going to be array of strings
  end
  #puts all_scores
  highest_score = all_scores.max_by{|word_with_score| word_with_score[:score]}
- p highest_score
+ p "This is one max score: #{highest_score}"
  
 all_highscores = all_scores.select{|word_with_score| word_with_score[:score] == highest_score[:score]}
-puts all_highscores
+puts "This is ALL the words that match high score: #{all_highscores}"
   # return {winning_word, score}
 
+  #look in the all_highscores look at the hash and pull the word only 
+  words = []
+  all_highscores.each do |hash|
+    words << hash[:word]
+  end
+
+  puts "This is our array of just words: #{words}"
+# word = ["hhaannhhnn", "cat"]
+# if word length != 10
+# then check for smallest word
+# if word lenghs are == the same
+# choose thes first word
+
+all_tens = words.select{|word| word.length == 10}
+# all_tens = ["hhaannhhnn", "hannahnnaa"] here we are gonna select the first 10 letter word
+# 1) if all_tens.size > 1 grab the first itm in the array
+# 2) if all_tens.size == 1 grab the first time in the array
+# 3) if all_tens.empty? then check for smallest word
+winning_word = ""
+if all_tens.size >= 1 
+  winning_word = all_tens[0]
+else
+  all_smallest = words.min_by{|word| word.length}
+  if all_smallest.class == Array 
+    winning_word = all_smallest[0]
+    else
+      winning_word = all_smallest
+    end
 end
- highest_score_from(["cat", "hannah", "cheezit", "itcheez"])
+
+puts "This is our winning word: #{winning_word}"
+
+
+
+
+end
+
+
+
+ 
+
+
+ highest_score_from (["sugarmouses", "mousesugars","z"])
+# (["cat", "hannah", "cheezit", "itcheez"])
 
 
 
