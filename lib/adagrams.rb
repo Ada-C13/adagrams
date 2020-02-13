@@ -67,20 +67,28 @@ def highest_score_from(words)
   end
 
   words_hash.each do |word, score|
-    case
-      when score > highest_scored
-        highest_scored = score
-        highest_word = word
-      # In case of a tie
-      when score == highest_scored && word.length == 10 && highest_word.length != 10
-        highest_word = word
-      when score == highest_scored && highest_word.length == 10 && word.length != 10
-        highest_word
-      when score == highest_scored && word.length == 10 && highest_word.length == 10
-        highest_word
-      when score == highest_scored && word.length < highest_word.length
-        highest_word = word
+    if score > highest_scored
+      highest_scored = score
+      highest_word = word
+    # In case of a tie
+    elsif score == highest_scored
+      highest_word = tiebreaker(highest_word, word)
     end
   end
   return {word: highest_word, score: highest_scored}
+end
+
+# Breaks the tie.
+def tiebreaker(highest_word, word)
+  case
+    when word.length == 10 && highest_word.length != 10
+      highest_word = word
+    when highest_word.length == 10 && word.length != 10
+      highest_word
+    when word.length == 10 && highest_word.length == 10
+      highest_word
+    when word.length < highest_word.length
+      highest_word = word
+  end
+  return highest_word
 end
