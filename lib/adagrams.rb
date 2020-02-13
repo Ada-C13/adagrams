@@ -160,12 +160,9 @@ while answer == "y"
 end
 
 print words
+
 # Wave (4)
-# play multiple times
-# array of words
-
-# score_tracker = {game1:{word, score}, game2:{word,score}}
-
+# method to calculate winning word
 
 def highest_score_from (words)
   # hash with all words and scores
@@ -182,32 +179,31 @@ def highest_score_from (words)
   highest_word = ""
   best_word = {}
   all_words_score.each do |word|
-    if word[:score] > highest_score
-        highest_score = word[:score]
-        highest_word = word[:word] 
-    else word[:score] == highest_score
-      # tie rules
-      # `conditionals` galore:
-      # prefer word with fewest letters
-      # if word has 10 letters, top word is the one with more tiles wins
-      # multiple words of same length, pick first one
-      if (word[:word]).length == 10
-        highest_score = word[:score]
-        highest_word = word[:word]
-      elsif ((word[:word]).length < (highest_word.length)) && ((word[:word]).length != 10)
-        highest_score = word[:score]
-        highest_word = word[:word]
-      # else (word[:word]).length < highest_word.length
-      #   highest_word = word[:word]
-      elsif (word[:word]).length == (highest_word.length)
-        highest_score = highest_score
-        highest_word = highest_word
-      else
-        highest_score = highest_score
-        highest_word = highest_word
-      end
-    end
+    #tie rules
+    case
+    when word[:score] > highest_score
+      highest_score = word[:score]
+      highest_word = word[:word]
+    # test 7 - tied score and same length words, prefers the first word
+    when (word[:score] == highest_score) && ((word[:word]).length == highest_word.length)
+      highest_score = highest_score
+      highest_word = highest_word
+    # test 5 & 6 - tied score, prefers most the word with 10 letters regardless of order
+    when (word[:score] == highest_score) && ((word[:word]).length == 10)
+      highest_score = word[:score]
+      highest_word = word[:word]
+    when (word[:score] == highest_score) && (highest_word.length == 10)
+      highest_score = highest_score
+      highest_word = highest_word
+      # test 3 & 4 - tied score, prefers the word with fewer letters regardless of order
+    when (word[:score] == highest_score) && ((word[:word]).length < highest_word.length)
+      highest_score = word[:score]
+      highest_word = word[:word]
+    when (word[:score] == highest_score) && ((word[:word]).length > highest_word.length)
+      highest_score = highest_score
+      highest_word = highest_word
 
+    end
   end
   
   best_word[:word] = "#{highest_word}"
