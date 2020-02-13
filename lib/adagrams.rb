@@ -112,3 +112,11 @@ def highest_score_from(words)
   winning_word_score[:score] = highest_score
   return winning_word_score
 end
+
+#wave 5
+require 'csv'
+require 'awesome_print'
+
+# is_in_english_dict?(input)
+words = CSV.read('../assets/dictionary-english.csv')
+ap words 
