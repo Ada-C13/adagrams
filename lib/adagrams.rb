@@ -69,13 +69,23 @@ def highest_score_from(words)
 		tie = set.select { |k, v| v == highest_score}
 		if tie.length >= 2
 			tie.each do |word, score|
-				if word.length > shortest_word_length
-					shortest_word_length += word.length
-					
-				elsif word.length < shortest_word_length
-					winning_word = word
+				if word.length > shortest_word_length 
+					if shortest_word_length == 0
+						shortest_word_length = word.length
+						winning_word = word
+					elsif word.length == 10
+						shortest_word_length = word.length
+						winning_word = word
+					end
 
-				elsif word.length == shortest_word_length
+				elsif word.length < shortest_word_length
+					if shortest_word_length == 10
+						nil
+					else
+						winning_word = word
+					end
+
+				elsif word.length == shortest_word_length 
 					winning_word = set.key(highest_score)
 				end
 			end
@@ -86,6 +96,6 @@ def highest_score_from(words)
 	return winning_hash = {:word => winning_word, :score => highest_score}
 end
 
-puts highest_score_from(['sharpen','qz', 'sharp'])
+
 
 
