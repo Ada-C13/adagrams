@@ -48,11 +48,10 @@ def score_word(word)
 	return score_count
 end
 
-puts score_word("xylophone")
 
-# def highest_score_from(words)
-# 	words = Array.new("")
-# 	winning_hash = {:word => "", :score => 0}
-# end
+def highest_score_from(words)
+	words = Array.new("")
+	winning_hash = {:word => "", :score => 0}
+end
 
 
