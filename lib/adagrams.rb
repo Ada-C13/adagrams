@@ -95,7 +95,3 @@ def highest_score_from(words)
 	end
 	return winning_hash = {:word => winning_word, :score => highest_score}
 end
-
-
-
-
