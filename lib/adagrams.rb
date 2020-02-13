@@ -96,16 +96,20 @@ def score_word(word)
   return score.sum
 end
 
+# The required parameters of the method 'tiebreaker' is the array 'winning_words' and the hash 'results'.
 def tiebreaker(winning_words, results)
   winner = {}
+# Finding the shortest word in the array 'winning_words' and assigning it to the variable 'shortest_word'.
   shortest_word = winning_words.min_by{|word| word.length}
   winning_words.each do |word|
+# Checking whether or not there is a word that is 10 letters by iterating through 'winning_words'. If so, that word is immediately returned as the winner.
     if word.length > 9
       winner[:word] = word
       winner[:score] = results[winning_words[0]]
       return winner
     end
   end
+# If no word is 10 letters, the array 'winning_words' is iterated through a second time and the word matching the shortest length is return as the winner.
   winning_words.each do |word|
     if word.length == shortest_word.length
       winner[:word] = word
@@ -123,17 +127,21 @@ def highest_score_from(words)
     score = score_word(word)
     results[word] = score
   end
+# Finding the highest scored word from the hash 'results' and assigning it to the value 'highest score'.
   highest_score = results.max_by{|word, score| score}
   winning_words = []
   words.each do |word|
+# Iterating through the array 'words' and shoveling all words with a score matching the highest score to the array 'winning_words'.
     if results["#{word}"] == highest_score[1]
       winning_words << word
     end
   end
+# If the length of the array 'winning_words' is greater than 2, the method 'tiebreaker' is invoked.
   if winning_words.length > 1
       winner = tiebreaker(winning_words, results)
       return winner
   else
+# If there is only 1 winning word, the word and it's score is created as a key-value pair in the hash 'winner' and returned to the user.
     winner[:word] = winning_words[0]
     winner[:score] = results[winning_words[0]]
     return winner
