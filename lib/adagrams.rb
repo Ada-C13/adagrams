@@ -1,3 +1,7 @@
+
+require "awesome_print"
+require "csv"
+
 # Wave 1
 
 def draw_letters
@@ -62,7 +66,7 @@ p user_2
 
 # Wave 2.
 def uses_available_letters?(input, letters_in_hand)
-  input = input.split("")
+  input = input.upcase.split("")
 
   letters_in_hand.each do |letter|
     if input.index(letter)
@@ -150,3 +154,18 @@ def highest_score_from(words)
 end
 
 
+# Wave 5.
+
+
+
+def is_in_english_dict?(input)
+
+  dictionary = CSV.read("../assets/dictionary-english.csv")
+  input = input.downcase.split
+
+  return dictionary.include?(input)
+end 
+
+
+# test = is_english_dict?('Cat')
+# p test 
