@@ -23,16 +23,16 @@ def uses_available_letters?(input, letters_in_hand)
   # edge case
   return false if input.length > 10 || input.length < 1 
 
-  temp_array = letters_in_hand.clone
+  temp_in_hand = letters_in_hand.clone
 
   input.upcase!
-  user_input_array = input.split("")
+  tile_split = input.split("")
 
-  user_input_array.each do |letter, i|
-    return false if !temp_array.include?(letter)   
+  tile_split.each do |letter, i|
+    return false if !temp_in_hand.include?(letter)   
 
-    # Delete a letter that was used from <temp_array>
-    temp_array.delete(letter) 
+    # Delete a letter that was used from <temp_in_hand>
+    temp_in_hand.delete(letter) 
   end 
   return true
 end
@@ -53,9 +53,9 @@ def score_word(word)
   score = 0 
   score += 8 if (word.length > 6) && (word.length < 11) 
 
-  user_input_array = word.upcase.split("")
+  tile_split = word.upcase.split("")
 
-  user_input_array.each do |letter| 
+  tile_split.each do |letter| 
     points.each do |score_chart, point|
       score += point if score_chart.include?(letter) 
     end 
@@ -65,11 +65,11 @@ end
 
 
 # Added feature for Wave 4 here:
-
 def highest_score_from(words)
   contestants = words.map{ |word| [word, score_word(word)] }.to_h
 
   winning_word = {word: "", score: 0}
+
   contestants.each do |word, score|
     if score > winning_word[:score]
       winning_word = {word: word, score: score}
@@ -81,15 +81,13 @@ def highest_score_from(words)
       elsif word.length < winning_word[:word].length
         winning_word = {word: word, score: score}
       end
-    end
-    
+    end  
   end
   return winning_word
 end 
 
 
 # Added feature for Wave 5 here:
-
 def is_in_english_dict?(input)
   input.downcase! 
 
