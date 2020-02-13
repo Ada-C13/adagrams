@@ -123,10 +123,5 @@ def is_in_english_dict?(input)
 		word
 	end
 	
-	if dictionary.include?(input_array)
-		return true
-	else
-		return false
-	end
-
+	return dictionary.include?(input_array) ? true : false
 end
