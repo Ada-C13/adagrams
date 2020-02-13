@@ -48,50 +48,8 @@ def score_word(word)
 	return score_count
 end
 
+
 def highest_score_from(words)
-	word_score_array = Array.new
-	word_score_hash = Hash.new
-	highest_score = 0
-	winning_word = ""
-	shortest_word_length = 0
-
-	words.each do |word|
-		score = score_word(word)
-		word_score_hash[word] = score
-		word_score_array << word_score_hash
-	end
-
-	word_score_array = word_score_array.uniq
-
-	word_score_array.each do |set|
-		highest_score = set.values.max
-
-		tie = set.select { |k, v| v == highest_score}
-		if tie.length >= 2
-			tie.each do |word, score|
-				if word.length > shortest_word_length 
-					if shortest_word_length == 0
-						shortest_word_length = word.length
-						winning_word = word
-					elsif word.length == 10
-						shortest_word_length = word.length
-						winning_word = word
-					end
-
-				elsif word.length < shortest_word_length
-					if shortest_word_length == 10
-						nil
-					else
-						winning_word = word
-					end
-
-				elsif word.length == shortest_word_length 
-					winning_word = set.key(highest_score)
-				end
-			end
-		else 
-			winning_word = set.key(highest_score)
-		end
-	end
-	return winning_hash = {:word => winning_word, :score => highest_score}
+	words = Array.new("")
+	winning_hash = {:word => "", :score => 0}
 end
