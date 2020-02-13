@@ -1,3 +1,4 @@
+require 'csv'
 
 def draw_letters
   big_pool_of_letters = {
@@ -43,6 +44,7 @@ def draw_letters
 
   return user_letters
 end
+
 
 def uses_available_letters?(input, letters_in_hand)
   input.upcase!
@@ -91,6 +93,7 @@ def score_word(word)
   return points.sum + extra_points
 end
 
+
 def highest_score_from(words)
   highest_score = 0
   highest_score_word = ""
@@ -114,13 +117,11 @@ def highest_score_from(words)
  return {word: highest_score_word, score: highest_score}
 end
 
-uses_available_letters?("aei", ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"])
-# letters_in_hand = draw_letters
-# p "This are the letters in your hand: #{letters_in_hand}."
 
-# p "Thell as a word from the provided letters?"
-# input = gets.chomp.upcase
-
-# highest_score_from(words)
-# p score_word(input)
-
+def is_in_english_dict?(input)
+  input.downcase!
+  CSV.read("assets/dictionary-english.csv").each do |word|
+    return true if word.include?(input)
+  end
+  return false
+end
