@@ -41,16 +41,13 @@ def score_word(word)
 
   letters.each do |letter|
     score_table.each do |score_value, letter_array|
-      if letter_array.include?(letter)
-        score += score_value.to_i
-      end
+        score += score_value.to_i if letter_array.include?(letter)
     end
   end
   # If the chosen word is greater in length than 7 but less than 10,
   # 8 more points will be added to their score.
-  if letters.length >= 7 && letters.length <= 10
-    score += 8
-  end
+  score += 8 if (letters.length >= 7 && letters.length <= 10)
+
   return score
 end
 
