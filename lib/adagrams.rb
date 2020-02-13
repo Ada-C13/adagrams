@@ -31,33 +31,30 @@ def draw_letters
   user_letters = []
 
   while user_letters.length < 10
+
     letters = big_pool_of_letters.keys
     rand_letter = big_pool_of_letters.keys[rand(letters.size)]
 
     if big_pool_of_letters[rand_letter] != 0
       user_letters << rand_letter
       big_pool_of_letters[rand_letter] -= 1
-      big_pool_of_letters.fetch(rand_letter)
     end
-
   end
 
   return user_letters
 end
-# p draw_letters
 
 def uses_available_letters?(input, letters_in_hand)
-  
+  input.upcase!
   unused_letters = letters_in_hand[0..-1]
-
+  
   input.each_char do |letter|
     if unused_letters.include?(letter)
-      unused_letters.delete(letter)
+      unused_letters.delete_at(unused_letters.index(letter))
     else
       return false
     end
   end
-
   return true
 end
 
@@ -73,7 +70,6 @@ def score_word(word)
   end
 
   split_word = word.split("")
-
   points = split_word.map do |letter|
     case letter
     when "A", "E", "I", "O", "U", "L", "N", "R", "S", "T"
@@ -92,46 +88,39 @@ def score_word(word)
       10
     end
   end
-
   return points.sum + extra_points
 end
 
 def highest_score_from(words)
   highest_score = 0
   highest_score_word = ""
-  words.each do |word|
-    p score_word(word)
-    if score_word(word) > highest_score
-      highest_score = score_word(word)
-      highest_score_word = word
-    elsif score_word(word) == highest_score
-      if word.length == highest_score_word.length && word.length == 10
 
-        #do something  
+  words.each do |word|
+    score_of_word = score_word(word)
+    if score_of_word > highest_score
+      highest_score = score_of_word
+      highest_score_word = word
+    elsif score_of_word == highest_score
+      if word.length == highest_score_word.length && word.length == 10 
       elsif word.length == 10 
         highest_score_word = word
-        highest_score = score_word(word)
-        #we will take the 10th length word
+        highest_score = score_of_word
       elsif word.length < highest_score_word.length && highest_score_word.length != 10
         highest_score_word = word
-        highest_score = score_word(word)
+        highest_score = score_of_word
       end
     end
- end
+  end
  return {word: highest_score_word, score: highest_score}
 end
 
-
- p highest_score_from(['AAAAAAAAAA', 'BBBBBB'])
-
-
-
-
+uses_available_letters?("aei", ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"])
 # letters_in_hand = draw_letters
-# p letters_in_hand
+# p "This are the letters in your hand: #{letters_in_hand}."
+
+# p "Thell as a word from the provided letters?"
 # input = gets.chomp.upcase
 
-# p uses_available_letters?("pizza", letters_in_hand)
-
+# highest_score_from(words)
 # p score_word(input)
 
