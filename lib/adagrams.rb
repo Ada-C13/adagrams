@@ -46,19 +46,14 @@ end
 
 def uses_available_letters?(input, letters_in_hand)
   word = input.upcase.chars
-  word_letters = Array.new
-  letters_in_hand.each do |n|
-    if word.include? n
-      word_letters << n
+  result = true
+  word.each do |letter|
+    if word.count(letter) > letters_in_hand.count(letter)
+      return false
     end
   end
-  p word_letters
-  if word.sort == word_letters.sort
-    return true
-  end
-  return false
+  return true
 end
-
 
 def score_word(word)
   word = word.upcase
@@ -109,4 +104,4 @@ def highest_score_from(words)
     }
 end
 
-        
+       
