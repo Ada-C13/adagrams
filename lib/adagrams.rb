@@ -89,6 +89,8 @@ def highest_score_from(words)
 		tied_scores << word if word[:score] == highest_score[:score]
 	end
 
+	return tied_scores[0] if tied_scores.length == 1
+
 	shortest_length = tied_scores.min_by do |index|
 		index[:word].length
 	end
@@ -111,10 +113,12 @@ end
 
 ## WAVE 5 - verify that the input word is valid against the english dictionary ##
 def is_in_english_dict?(input)	
-	dictionary = CSV.read('assets/dictionary-english.csv').map do |word|
+	input = input.downcase
+
+	dictionary = CSV.read('assets/dictionary-english.csv', headers: true).map do |word|
 		word[0]
 	end
-	
+
 	dictionary_grouped = dictionary.group_by do |word|
 		word[0]
 	end
