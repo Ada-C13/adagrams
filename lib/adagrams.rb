@@ -5,30 +5,21 @@
 require 'awesome_print'
 require 'csv'
 
-# Creating letter pool
-letter = ('A'..'Z').to_a
-quantity = [9, 2, 2, 4, 12, 2, 3, 2, 9, 1, 1, 4, 2, 6, 8, 2, 1, 6, 4, 6, 4, 2, 2, 1, 2, 1 ]
-
+# Method to create letter pool 
 def create_letter_pool(letter, quantity)
   index = 0
   letter_pool = []
+
   letter.each_with_index do |letter, index|
     letter_pool.fill(letter, letter_pool.size, quantity[index])
   end
   return letter_pool
 end
-letter_pool_array = create_letter_pool(letter, quantity)
 
-# Wave (1)
-# Method to draw 10 random letters
+# Wave (1) - method to draw 10 random letters
 def draw_letters
-  # Welcome message
-    puts "Welcome to Adagrams!"
-    puts "Let's draw 10 letters from the letter pool..."
-    puts "You have drawn the letters:"
-    
     letter = ('A'..'Z').to_a
-    quantity = [9, 2, 2, 4, 12, 2, 3, 2, 9, 1, 1, 4, 2, 6, 8, 2, 1, 6, 4, 6, 4, 2, 2, 1, 2, 1 ]
+    quantity = [9, 2, 2, 4, 12, 2, 3, 2, 9, 1, 1, 4, 2, 6, 8, 2, 1, 6, 4, 6, 4, 2, 2, 1, 2, 1]
    
   # Use the create_letter_pool method
     create_letter_pool(letter, quantity)
@@ -40,15 +31,8 @@ def draw_letters
     letter.join(', ')
     return drawn_letters = letters
 end
-drawn_letters = draw_letters
-puts drawn_letters.join(', ')
 
-
-# Wave (2)
-puts "Please provide a word that only uses the letters from the letter bank: "
-test_word = gets.chomp
-
-# Wave (5) Is the word in the English dictionary?
+# Wave (5) - method to verify if word is a valid word in the English dictionary
 def is_in_english_dict? (input)
   dictionary = CSV.read('assets/dictionary-english.csv')
   dictionary = dictionary.flatten
@@ -56,9 +40,7 @@ def is_in_english_dict? (input)
   return is_valid_word
 end
 
-puts is_in_english_dict?(test_word)
-
-# method to check whether word by user is in drawn letters
+# Wave (2)- method to check whether word by user is in drawn letters
 def uses_available_letters? (input, letters_in_hand)
   input = input.upcase.chars
   # make copy of drawn letters
@@ -85,20 +67,14 @@ def uses_available_letters? (input, letters_in_hand)
   return is_valid
 end
 
-
-
-puts uses_available_letters?(test_word, drawn_letters)
-  
-
-# Wave (3)
-# method to calculate score
+# Wave (3) - method to calculate score
 def score_word(word)
   word = word.upcase.chars
 
+  # scoring
   if word.empty? == true # nil case or empty string
     score_word = 0
   else
-      # scoring
       score_word = word.map do |letter|
         case letter
         when "A", "E", "I", "O", "U", "L", "N", "R", "S", "T"
@@ -123,6 +99,7 @@ def score_word(word)
       # calculate total score
       score_word = score_word.inject(:+)
 
+      # > 7 letter bonus
       if word.length >= 7
         score_word = score_word + 8
       else
@@ -132,49 +109,7 @@ def score_word(word)
   return score_word 
 end
 
-# hash to hold words and scores
-# master array for Wave 4 -> words
-words = []
-scores = []
-
-words << test_word
-
-score = score_word(test_word)
-scores << score
-
-# Do you want to play again prompt
-puts "Would you like to play again? Enter y to play again."
-answer = gets.chomp
-
-while answer == "y"
-  # Wave 1
-  drawn_letters = draw_letters
-  puts drawn_letters.join(', ')
-
-  puts "Please provide a word that only uses the letters from the letter bank: "
-  test_word = gets.chomp
-
-  # Wave 2
-  puts uses_available_letters?(test_word, drawn_letters)
-
-  # Wave 3
-  
-  words << test_word
-  
-  score = score_word(test_word)
-  scores << score
-
-  # Prompt again
-  puts "Would you like to play again? Enter y to play again."
-  answer = gets.chomp
-
-end
-
-print words
-
-# Wave (4)
-# method to calculate winning word
-
+# Wave (4)- method to calculate winning word
 def highest_score_from (words)
   # hash with all words and scores
   all_words_score = words.map do |word|
@@ -189,6 +124,7 @@ def highest_score_from (words)
   highest_score = 0
   highest_word = ""
   best_word = {}
+
   all_words_score.each do |word|
     #tie rules
     case
@@ -206,14 +142,13 @@ def highest_score_from (words)
     when (word[:score] == highest_score) && (highest_word.length == 10)
       highest_score = highest_score
       highest_word = highest_word
-      # test 3 & 4 - tied score, prefers the word with fewer letters regardless of order
+    # test 3 & 4 - tied score, prefers the word with fewer letters regardless of order
     when (word[:score] == highest_score) && ((word[:word]).length < highest_word.length)
       highest_score = word[:score]
       highest_word = word[:word]
     when (word[:score] == highest_score) && ((word[:word]).length > highest_word.length)
       highest_score = highest_score
       highest_word = highest_word
-
     end
   end
   
@@ -223,7 +158,4 @@ def highest_score_from (words)
   return best_word
 
 end
-
-puts highest_score_from(words)
-
 
