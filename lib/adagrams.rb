@@ -1,3 +1,5 @@
+require 'csv'
+
 # wave 1
 # method draw_letters randomly generates 10 letters, stores them in an array,
 # returns that array of letters
@@ -136,3 +138,13 @@ def highest_score_from(words)
   return {:word => winning_word, :score => (highest_score[:score])}
 end
 
+# wave 5
+# check if the the input is found in the english dictionary
+# add a method called is_in_english_dict?
+# has one parameter: input, which is a string
+# returns a boolean t/f
+
+def is_in_english_dict? (input)
+  array_of_dictionary = CSV.read('../assets/dictionary-english.csv').map(&:to_a)
+  return array_of_dictionary.include? input
+end
