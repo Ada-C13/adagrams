@@ -90,5 +90,18 @@ def uses_available_letters?(input, letters_in_hand)
   return true
 end
 
-
+# method that calculates the tiles being played and returns the total score
+def score_word(word)
+  total_score = 0
+  if word.empty? 
+    return total_score 
+  else
+    user_word = word.upcase.split("")
+    total_score = user_word.inject(0) {|sum, word| sum + $score_chart[word]}
+    if user_word.length == 7 || user_word.length == 8 || user_word.length == 9 || user_word.length == 10
+      total_score += 8
+    end
+  end
+  return total_score
+end
 
