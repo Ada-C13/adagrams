@@ -191,12 +191,17 @@ describe 'Adagrams' do
     end
 
     it 'calls ArgumentError on empty string' do
-      input = ' '
+      input = ""
+      expect{is_in_english_dict?(input)}.must_raise ArgumentError
+    end
+
+    it 'calls ArgumentError if input is nil' do
+      input = nil
       expect{is_in_english_dict?(input)}.must_raise ArgumentError
     end
 
     it "calls ArgumentError on non string inputs" do
-      input = "234sdf"
+      input = 234
       expect{is_in_english_dict?(input)}.must_raise ArgumentError
     end
   end
