@@ -86,17 +86,13 @@ end
 def highest_score_from(words)
   win_word = ""
   win_score = 0
-  words.each do |word|
-    current_score = score_word(word)
-      if current_score == win_score
-        if win_word.length == word.length || win_word.length == 10
-          # no change
-        elsif word.length == 10 || word.length < win_word.length
-          win_word = word 
-        end  
-      elsif current_score > win_score
-        win_score = current_score
-        win_word = word
+  words.each do |current_word|
+    current_score = score_word(current_word)
+      if current_score > win_score || (current_score == win_score && # current score wins or its a tie
+         (!(win_word.length == current_word.length || win_word.length == 10) && # is previous winning word 10 chars, or is it the same length as new word?
+          (current_word.length == 10 || current_word.length < win_word.length))) # check to see if current word is 10, then check for which is the smallest
+          win_word = current_word
+          win_score = current_score   
       end
   end
   return {
