@@ -19,20 +19,18 @@ end
 
 # Added feature for Wave 2 here:
 def uses_available_letters?(input, letters_in_hand)
-
   # edge case
   return false if input.length > 10 || input.length < 1 
 
   temp_in_hand = letters_in_hand.clone
 
   input.upcase!
-  tile_split = input.split("")
+  tile_split = input.split("") 
 
-  tile_split.each do |letter, i|
+  tile_split.each do |letter|
     return false if !temp_in_hand.include?(letter)   
-
-    # Delete a letter that was used from <temp_in_hand>
-    temp_in_hand.delete(letter) 
+    
+    temp_in_hand.delete_at(temp_in_hand.index(letter))
   end 
   return true
 end
