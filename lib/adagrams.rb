@@ -106,7 +106,7 @@ def highest_score_from(words)
 end
 
 def is_in_english_dict?(input)
-  input = input.chomp
+  input = input.chomp.downcase
   if input.length > 0
     CSV.foreach('assets/dictionary-english.csv') do |word|
       if input == word[0]
