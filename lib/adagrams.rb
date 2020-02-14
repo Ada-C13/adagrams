@@ -1,3 +1,4 @@
+require 'csv'
 $letters = {
   A: 9,
   B: 2,
@@ -102,6 +103,16 @@ def highest_score_from(words)
       word: win_word,
       score: win_score
     }
+end
+
+def is_in_english_dict?(input)
+  CSV.foreach('assets/dictionary-english.csv') do |word|
+    if input == word[0]
+      p word[0]
+      return true
+    end
+  end
+  return false
 end
 
        
