@@ -41,7 +41,6 @@ def draw_letters
     hand[i] = letter
   end
   hand = hand.map {|e| e.to_s}
-  puts hand
   return hand
 end
 
