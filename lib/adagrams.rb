@@ -1,13 +1,12 @@
 # Yesenia Torres + Quin Quintero 
 # adagrams.rb 
 
-# Gems
 require "minitest"
-
 # require "minitest-reporters"
 # require "minitest-skip"
 
 # WAVE 1
+
 def draw_letters 
     letter_pool = {
         #letter => quantity 
@@ -17,36 +16,35 @@ def draw_letters
         :W => 2, :X => 1,:Y => 2,:Z => 1
     }
 
-        # Create a hand
-        random_hash =  letter_pool.to_a.sample(10).to_h
-        # puts random_hash
-        # Subtract letter that has been used from the letter pool
-        random_hash.each do |key, value|
+    # Create a hand
+    random_hash =  letter_pool.to_a.sample(10).to_h
+    # puts random_hash
+    # Subtract letter that has been used from the letter pool
+    random_hash.each do |key, value|
         if random_hash[key] == letter_pool[key] && letter_pool[key] > 1
             letter_pool[key] = value - 1
         else
             letter_pool.delete(key)
         end
-        end
-        # puts letter_pool
-        # Create hand array
-        hand = random_hash.map do |letter, quantity|
-            letter.to_s
-        end
+    end
+    
+    # Create hand array
+    hand = random_hash.map do |letter, quantity|
+        letter.to_s
+    end
    
     return hand
 end 
 
+# WAVE 2
 
-# Check anagram uses letters from the drawn hand 
+# Check user input is using the letters from the drawn hand 
 def uses_available_letters?(input, letters_in_hand)
     available_letters = letters_in_hand.sort.join.upcase
     
     user_input = input.split("").sort.join.upcase
 
-
     return available_letters.include? user_input 
-  
 end 
 
 # WAVE 3 
@@ -89,49 +87,40 @@ end
 # WAVE 4 
 
 # Return highest score
-def highest_score_from(words, score_word = :score_word)
-    
-    highest_hash = {}
-    # create a hash of the words and their scores 
-    words.each do |word| 
-        #highest_hash.merge!("#{word}": score_word(word.upcase))  
-        highest_hash[word] = score_word(word.upcase) 
+def highest_score_from(words)
+    # Create a hash of the words and their scores results 
+    score_results = {}
+    words.each do |word|  
+        score_results[word] = score_word(word.upcase) 
     end
-    # ------------------------------------------------ our attempt to integrate logic, not currently working
-
-    shortest_word_length = words[0].length 
-    highest_scored_word = ""
-    highest_score = 0
-
-    # we want to be able to iterate through esach of the tied highest words and pull out the winner of the tie
-    highest_hash.each do |word, score|
-        #will return word if greater than 10 automatically 
-        if word.length == 10
-            highest_scored_word = word
-            highest_score = score
-            return {highest_scored_word => highest_score}
-        else 
-
-            # if highest_score < score 
-            #     highest_score = score 
-            #     highest_scored_word = word
-            # elsif highest_score == score 
-            #     if highest_scored_word.length < word.length
-            #         return {highest_scored_word => highest_score}
-            #     else highest_scored_word.length > word.length
-            #          return {word => score}
-            #     end 
-            # end 
-            # iword.to_s.length <= shortest_word_length 
-                
-            #     highest_scored_word = word.to_s
-            #     highest_score = score 
-            #     return {highest_scored_word => highest_score}
-            # end 
-        end 
+    
+    # Find highest score in score_results 
+    highest_pair = score_results.max_by {|key, value| value}
+    highest_score = highest_pair[1]
+    
+    # Collect a hash of the tied highest words 
+    tied_highest_words = score_results.select {|key, value|  value == highest_score}
+    
+    # If there is no tie for the highest word, return the winning word/score pair
+    winner = ""
+    if tied_highest_words.to_a.length == 1
+        winner = tied_highest_words
+        return {:word => tied_highest_words.keys[0], :score => highest_score} # return final result in appropriate format 
     end 
-    #return {highest_scored_word => highest_score}
-end
 
-#uts uses_available_letters?("x", ["y", "e", "s"])
-puts highest_score_from(["x", "xx", "xxx", "xxxx"])
+    # If there is a tie, apply logic to find the tie breaker 
+    tie_breaker = tied_highest_words.keys
+    tie_winner = tie_breaker.first # intentionally use .first so that if multiple words are the same score and the same length, the first one in the supplied list is chosen
+    tie_breaker.each do |word|
+        # A word with length 10 automatically wins the tie
+        if word.length == 10 
+            tie_winner = word
+            return {:word => tie_winner, :score => highest_score}
+        # Or the shortest length word wins the tie 
+        elsif word.length < tie_winner.length
+            tie_winner = word
+        end
+    end 
+
+    return {:word => tie_winner, :score => highest_score}
+end
