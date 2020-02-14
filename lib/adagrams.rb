@@ -1,0 +1,94 @@
+# hash of available letters to pull from
+$letters = {
+  "A" => 9, 
+  "B" => 2, 
+  "C" => 2, 
+  "D" => 4, 
+  "E" => 12, 
+  "F" => 2, 
+  "G" => 3, 
+  "H" => 2, 
+  "I" => 9, 
+  "J" => 1, 
+  "K" => 1, 
+  "L" => 4, 
+  "M" => 2, 
+  "N" => 6, 
+  "O" => 8, 
+  "P" => 2, 
+  "Q" => 1, 
+  "R" => 6, 
+  "S" => 4, 
+  "T" => 6, 
+  "U" => 4, 
+  "V" => 2, 
+  "W" => 2, 
+  "X" => 1, 
+  "Y" => 2, 
+  "Z" => 1
+}
+
+# hash chart of each letter with their score value
+$score_chart = {
+  "A" => 1, 
+  "B" => 3, 
+  "C" => 3, 
+  "D" => 2, 
+  "E" => 1, 
+  "F" => 4, 
+  "G" => 2, 
+  "H" => 4, 
+  "I" => 1, 
+  "J" => 8, 
+  "K" => 5, 
+  "L" => 1, 
+  "M" => 3, 
+  "N" => 1, 
+  "O" => 1, 
+  "P" => 3, 
+  "Q" => 10, 
+  "R" => 1, 
+  "S" => 1, 
+  "T" => 1, 
+  "U" => 1, 
+  "V" => 4, 
+  "W" => 4, 
+  "X" => 8, 
+  "Y" => 4, 
+  "Z" => 10
+}
+
+# method to draw 10 letters
+def draw_letters
+  ten_letters = []
+  letters = $letters.keys 
+# this loop pulls random letters from hash and pushes it into an array
+  10.times do |index|
+     rand_letter = letters[rand(letters.size)]
+      if $letters[rand_letter] == 0
+        rand_letter = letters[rand(letters.size)]
+      else
+        $letters[rand_letter] -= 1 
+      end
+    ten_letters << rand_letter
+  end  
+    return ten_letters
+end
+
+
+# takes in the letters and verifies of the letters used are in the current hand
+def uses_available_letters?(input, letters_in_hand)
+  input = input.split("")
+  in_hand_dup = letters_in_hand.dup
+
+  input.each do |x|
+    unless in_hand_dup.include? x 
+     return false
+    end
+    in_hand_dup.delete(x)
+  end
+  return true
+end
+
+
+
