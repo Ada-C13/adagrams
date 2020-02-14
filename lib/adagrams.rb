@@ -105,3 +105,38 @@ def score_word(word)
   return total_score
 end
 
+# method that takes the word with the highest score the total score
+def highest_score_from(words)
+  word_score_list = {}
+   words.each do |word|
+     score = score_word(word)
+     word_score_list[word] = score
+   end
+ 
+   # method that finds the winning word and it's score
+   max_score = 0
+   max_word = ""
+   i = 0
+   while i < words.length 
+     # we want to acces the right word inside the hash. 
+     # so we acessed the key from the hash and the index value from an array.
+     val = word_score_list[words[i]]
+       if val > max_score
+         max_score = val
+         max_word = words[i]
+       elsif val == max_score
+         # in case of tied score and same length words, prefers the first word
+         if words[i].length == max_word.length 
+           return {word: max_word, score: max_score}
+         elsif words[i].length == 10 
+           max_word = words[i]
+         # picks the shortest word if there no word that equal to 10 letters long
+         elsif words[i].length < max_word.length && max_word.length != 10
+           max_word = words[i]
+         end
+       end
+     i += 1
+   end
+   return {word: max_word, score: max_score}
+ end
+
