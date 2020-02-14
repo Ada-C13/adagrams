@@ -179,3 +179,18 @@ describe 'Adagrams' do
     end
   end
 end
+
+describe 'is_in_english_dict? method' do
+
+  it 'if word in dictionary' do
+    word = 'test'
+
+    expect(is_in_english_dict?(word)).must_equal true
+  end
+
+  it 'if word not in dictionary' do
+    word = 'swir'
+
+    expect(is_in_english_dict?(word)).must_equal false
+  end
+end 
