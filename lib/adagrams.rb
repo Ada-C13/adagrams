@@ -88,7 +88,7 @@ def highest_score_from(words)
   word_value_hash = {}
 
   words.each do |word|
-    word_score = score_word(word)
+    word_score = score_word(word) # To note: we used the def score_word that is defined above.
 
     word_value_hash["#{word}"] = word_score
 
@@ -112,7 +112,8 @@ def highest_score_from(words)
   if tie.count > 1
     best_tie_word = ""
     shortest_tie_length = 0
-    tie.each do |tie_word|
+
+    tie.each do |tie_word|  # evaluates a tie situation to account for words that have 10 letters, and other factors.
       if tie_word.length == 10 && best_tie_word.length != 10
         best_tie_word = tie_word
         shortest_tie_length = 1
@@ -127,7 +128,7 @@ def highest_score_from(words)
     
       end
     end
-    
+
     best_scoring_word = best_tie_word
   end
 
