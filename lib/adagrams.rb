@@ -3,32 +3,32 @@
 # returns that array of letters
 def draw_letters
   compact_bag = {
-    "A": 9,
-    "B": 2, 
-    "C": 2, 
-    "D": 4, 
-    "E": 12, 
-    "F": 2, 
-    "G": 3, 
-    "H": 2, 
-    "I": 9,
-    "J": 1, 
-    "K": 1, 
-    "L": 4,
-    "M": 2,
-    "N": 6,
-    "O": 8,
-    "P": 2, 
-    "Q": 1, 
-    "R": 6,
-    "S": 4, 
-    "T": 6,
-    "U": 4,
-    "V": 2,
-    "W": 2,
-    "X": 1, 
-    "Y": 2, 
-    "Z": 1
+    "A" => 9,
+    "B" => 2, 
+    "C" => 2, 
+    "D" => 4, 
+    "E" => 12, 
+    "F" => 2, 
+    "G" => 3, 
+    "H" => 2, 
+    "I" => 9,
+    "J" => 1, 
+    "K" => 1, 
+    "L" => 4,
+    "M" => 2,
+    "N" => 6,
+    "O" => 8,
+    "P" => 2, 
+    "Q" => 1, 
+    "R" => 6,
+    "S" => 4, 
+    "T" => 6,
+    "U" => 4,
+    "V" => 2,
+    "W" => 2,
+    "X" => 1, 
+    "Y" => 2, 
+    "Z" => 1
   }
   expanded_bag = []
   compact_bag.each do |letters, number|
@@ -36,7 +36,7 @@ def draw_letters
       expanded_bag << letters
     end
   end 
-  
+
   random = []
 
   10.times do 
@@ -46,7 +46,7 @@ def draw_letters
     end
   random << x
   end
-  
+
   hand = random.map {|number| expanded_bag[number]}
 end
 
@@ -56,7 +56,7 @@ end
 # returns true if string is valid (can be made from array of letters)
 # returns false if string is invalid (cannot be made from array of letters)
 def uses_available_letters? (input, letters_in_hand)
-  input <= letters_in_hand.join
+  letters_in_hand.join.include? input
 end
 
 #wave 3 
@@ -133,7 +133,6 @@ def highest_score_from(words)
     end
   end
   puts "This is our winning word: #{winning_word}"
-  return {:word => winning_word, :score => highest_score}
+  return {:word => winning_word, :score => (highest_score[:score])}
 end
 
-highest_score_from (["sugarmouses", "mousesugars","z"])

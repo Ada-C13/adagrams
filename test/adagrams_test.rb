@@ -1,4 +1,4 @@
-wrequire 'minitest/autorun'
+require 'minitest/autorun'
 require 'minitest/reporters'
 require 'minitest/skip_dsl'
 
@@ -42,7 +42,7 @@ describe 'Adagrams' do
       test_word = 'DOG'
 
       is_valid = uses_available_letters? test_word, drawn_letters
-
+      
       expect(is_valid).must_equal false
     end
 
