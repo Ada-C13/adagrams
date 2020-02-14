@@ -41,6 +41,7 @@ def draw_letters
     hand[i] = letter
   end
   hand = hand.map {|e| e.to_s}
+  puts hand
   return hand
 end
 
@@ -91,9 +92,8 @@ def highest_score_from(words)
         if win_word.length == word.length || win_word.length == 10
           # no change
         elsif word.length == 10 || word.length < win_word.length
-          win_score = current_score
-          win_word = word
-        end
+          win_word = word 
+        end  
       elsif current_score > win_score
         win_score = current_score
         win_word = word
@@ -106,10 +106,13 @@ def highest_score_from(words)
 end
 
 def is_in_english_dict?(input)
-  CSV.foreach('assets/dictionary-english.csv') do |word|
-    if input == word[0]
-      return true
+  input = input.chomp
+  if input.length > 0
+    CSV.foreach('assets/dictionary-english.csv') do |word|
+      if input == word[0]
+        return true
+      end
     end
   end
-  return false
-end   
+    return false
+end
