@@ -1,3 +1,5 @@
+require 'csv'
+
 # Wave 1
 # Draws ten letters for the user.
 def draw_letters
@@ -27,7 +29,6 @@ def uses_available_letters?(input, letters_in_hand)
   input_letters.empty? ? true : false
 end
 
-uses_available_letters?('riddle', ['R','I','Y','K','D','L','E','X'])
 # Wave 3
 # Scores the word that the user has inputted.
 def score_word(word)
@@ -91,4 +92,11 @@ def tiebreaker(highest_word, word)
   end
 
   return highest_word
+end
+
+# Wave 5
+# Checks if input is a valid word in the English Dictionary.
+def is_in_english_dict?(input)
+  dictionary = File.open('assets/dictionary-english.csv').readlines.map(&:chomp)
+  dictionary.include?(input) ? true : false
 end
