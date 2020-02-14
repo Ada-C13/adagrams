@@ -92,10 +92,7 @@ def highest_score_from(words)
   winning_word = word_scores(words).max_by { |word, score| score }[0]
 
   if word_scores(words).values != word_scores(words).values.uniq
-    # invoke tie_breaking method
-    # if there are tied scores,
-    # invoke the tie score method on the words hash
-    tie_winner = tie_breaker(words) # this is a hash
+    tie_winner = tie_breaker(words) 
     winning_word = tie_winner[:word]
     high_score = tie_winner[:score]
   end
@@ -106,14 +103,14 @@ def highest_score_from(words)
 end
   
   
-  high_score = 0
-  winning_word = ""
-  tie_breaking_array = []
+  # high_score = 0
+  # winning_word = ""
+  # tie_breaking_array = []
   
-  look at each word, invoke score_word method, set highest score as winning_word
-  words.each do |word|
-    if score_word(word) > high_score
-      high_score = score_word(word)
-      winning_word = word
-    end   
-  end
+  # look at each word, invoke score_word method, set highest score as winning_word
+  # words.each do |word|
+  #   if score_word(word) > high_score
+  #     high_score = score_word(word)
+  #     winning_word = word
+  #   end   
+  # end
