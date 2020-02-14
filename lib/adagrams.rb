@@ -44,17 +44,29 @@ end
 
 def uses_available_letters?(input, letters_in_hand)
   input_letters = input.split(//).sort
-  user_letters = letters_in_hand.clone
+  # number_of_letters is a hash that will hold the words in the hand as the key and how many instances of them there are as the value.
+  number_of_letters = {}
+  # populating the number_of_letters hash by looping through the hand.
+  letters_in_hand.each do |letter|
+    if number_of_letters.has_key?(letter)
+      number_of_letters[letter] += 1
+    else
+      number_of_letters[letter] = 1
+    end
+  end
   input_letters.each do |letter|
-    if user_letters.include?(letter)
-      user_letters.delete(letter)
+    if number_of_letters.has_key?(letter)
+      if number_of_letters[letter] == 0
+        return false
+      else
+        number_of_letters[letter] -= 1
+      end
     else
       return false
     end
   end
   return true
 end
-
 
 def score_word(word)
   letter_points = {
