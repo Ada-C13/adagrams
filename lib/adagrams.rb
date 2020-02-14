@@ -4,6 +4,7 @@
 
 # Access english dictionary
 require "csv"
+require "pry"
 ENGLISH_DICT = CSV.read("assets/dictionary-english.csv")
 
 # Wave 1
@@ -16,13 +17,11 @@ def draw_letters
     P: 2, Q: 1, R: 6, S: 4, T: 6,
     U: 4, V: 2, W: 2, X: 1, Y: 2, Z: 1
   }
-  tile_array = []
-  all_tiles.each do |letter, number|
-    number.times do
-      tile_array.push(letter.to_s)
-    end
-  end
-  tile_array.sample(10)
+
+  all_tiles.each.with_object([]) {|(letter, number), tile_array|
+    tile_array.concat (letter.to_s * number).split(//)
+  }.sample(10)
+
 end
 
 # Wave 2
@@ -51,27 +50,19 @@ def score_word word
     J: 8, X: 8,
     Q: 10, Z: 10
   }
-  score_total = 0
-  word.length.times do |i|
-    letter = word[i].upcase
-    score_total += score_hash[letter.to_sym]
-  end
-  if word.length >= 7 && word.length <= 10
-    score_total += 8
-  end
-  return score_total
+
+  score_total = word.upcase.chars.map {|c| score_hash[c.to_sym]}.sum
+  
+  (7..10).include?(word.length) ? score_total += 8 : score_total
 end
 
 # Wave 4
-
+# Tiebreaker to calculate method
 def tiebreaker current_word, best_word
-  if current_word.length == 10 && best_word.length != 10
-    current_word
-  elsif current_word.length < best_word.length && best_word.length != 10
-    current_word
-  else 
-    best_word
-  end
+  return best_word if best_word.length == 10
+  return current_word if current_word.length == 10
+  
+  [current_word, best_word].min_by {|word| word.length}
 end
 
 # Calculates the highest score from submitted words
