@@ -78,6 +78,7 @@ def score_word(word)
     if letters_array.length > 6
       word_score += 8
     end
+
     return word_score
 end
 
@@ -100,10 +101,10 @@ def highest_score_from(words)
   end
 
     tie = []
-    max = word_value_hash.values.max
+    max_score = word_value_hash.values.max
 
     word_value_hash.each do |scored_word,points|
-      if points == max
+      if points == max_score
         tie << scored_word
       end
     end
