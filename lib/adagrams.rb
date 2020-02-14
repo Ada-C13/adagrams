@@ -19,9 +19,6 @@ def create_letter_pool(letter, quantity)
 end
 letter_pool_array = create_letter_pool(letter, quantity)
 
-
-
-
 # Wave (1)
 # Method to draw 10 random letters
 def draw_letters
@@ -51,12 +48,15 @@ puts drawn_letters.join(', ')
 puts "Please provide a word that only uses the letters from the letter bank: "
 test_word = gets.chomp
 
+# Wave (5) Is the word in the English dictionary?
 def is_in_english_dict? (input)
-  dictionary = CSV.read('../assets/dictionary-english.csv')
+  dictionary = CSV.read('assets/dictionary-english.csv')
   dictionary = dictionary.flatten
   is_valid_word = dictionary.include?(input) 
   return is_valid_word
 end
+
+puts is_in_english_dict?(test_word)
 
 # method to check whether word by user is in drawn letters
 def uses_available_letters? (input, letters_in_hand)
@@ -89,7 +89,6 @@ end
 
 puts uses_available_letters?(test_word, drawn_letters)
   
-
 
 # Wave (3)
 # method to calculate score
@@ -226,4 +225,5 @@ def highest_score_from (words)
 end
 
 puts highest_score_from(words)
+
 
