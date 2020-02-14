@@ -9,18 +9,25 @@ def draw_letters
   10.times do
     hand << letters_pool.sample
   end
+
   return hand
 end
 
 # Wave 2
 # Checks if the word the user inputs is available in letters in hand.
 def uses_available_letters?(input, letters_in_hand)
-  # Variable holding array of letters of chosen word.
-  letters = input.upcase.split('')
-  check_overlap = letters_in_hand & letters
-  check_overlap == letters ? true : false
+  input_letters = input.upcase.split('') # Variable holding array of letters of chosen word.
+  
+  letters_in_hand.each do |letter|
+    if input_letters.include?(letter)
+      input_letters.delete_at(input_letters.index(letter))
+    end
+  end
+
+  input_letters.empty? ? true : false
 end
 
+uses_available_letters?('riddle', ['R','I','Y','K','D','L','E','X'])
 # Wave 3
 # Scores the word that the user has inputted.
 def score_word(word)
@@ -54,16 +61,12 @@ end
 # Wave 4
 # Chooses the highest scoring word from all words inputted.
 def highest_score_from(words)
-  # Variable tracking each word and its respective score.
-  words_hash = {}
   highest_word = "" # Variable tracking word that scores the highest.
   highest_scored = 0 # Variable tracking the highest score.
 
   words.each do |word|
-    words_hash[word] = score_word(word)
-  end
+    score = score_word(word)
 
-  words_hash.each do |word, score|
     if score > highest_scored
       highest_scored = score
       highest_word = word
@@ -72,20 +75,20 @@ def highest_score_from(words)
       highest_word = tiebreaker(highest_word, word)
     end
   end
+
   return {word: highest_word, score: highest_scored}
 end
 
 # Breaks the tie.
 def tiebreaker(highest_word, word)
   case
-    when word.length == 10 && highest_word.length != 10
-      highest_word = word
     when highest_word.length == 10 && word.length != 10
       highest_word
-    when word.length == 10 && highest_word.length == 10
-      highest_word
+    when word.length == 10 && highest_word.length != 10
+      highest_word = word
     when word.length < highest_word.length
       highest_word = word
   end
+
   return highest_word
 end
