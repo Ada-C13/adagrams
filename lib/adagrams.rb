@@ -101,16 +101,3 @@ def highest_score_from(words)
   high_score_hash[:word] = winning_word 
   return high_score_hash
 end
-  
-  
-  # high_score = 0
-  # winning_word = ""
-  # tie_breaking_array = []
-  
-  # look at each word, invoke score_word method, set highest score as winning_word
-  # words.each do |word|
-  #   if score_word(word) > high_score
-  #     high_score = score_word(word)
-  #     winning_word = word
-  #   end   
-  # end
