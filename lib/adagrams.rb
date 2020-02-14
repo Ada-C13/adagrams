@@ -1,7 +1,6 @@
 require 'csv'
 
-## WAVE 1 ##
-
+## WAVE 1 - build a hand of 10 random letters from a pool ##
 def draw_letters
 	letters = {A: 9, B: 2, C: 2, D: 4, E: 12, F: 2, G: 3, H: 2, I: 9, J: 1, K: 1, L: 4, M: 2, N: 6, O: 8, P: 2, Q: 1, R: 6, S: 4, T: 6, U: 4, V: 2, W: 2, X: 1, Y: 2, Z: 1}
 
@@ -28,8 +27,7 @@ def draw_letters
 	return hand.sort
 end
 
-## WAVE 2 ##
-
+## WAVE 2 - check if an input word only uses words contained within the hand ##
 def uses_available_letters?(input, letters_in_hand)
 	lih_clone = letters_in_hand.dup
 	word = input.upcase.split('')
@@ -48,11 +46,9 @@ def uses_available_letters?(input, letters_in_hand)
 	else
 		return false
 	end
-
 end
 
-## WAVE 3 ##
-
+## WAVE 3 - returns the score of a given word ##
 def score_word(word)
 	score_chart = {
 		1 => ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"],
@@ -78,8 +74,7 @@ def score_word(word)
 	return score
 end
 
-## WAVE 4 ##
-
+## WAVE 4 - find the highest scoring word ##
 def highest_score_from(words)
 	words_with_scores = words.map do |word|
 		{:word => word, :score => score_word(word)}
@@ -114,14 +109,15 @@ def highest_score_from(words)
 	end
 end
 
-## WAVE 5 ##
-
-def is_in_english_dict?(input)
-	input_array = [input]
-	
+## WAVE 5 - verify that the input word is valid against the english dictionary ##
+def is_in_english_dict?(input)	
 	dictionary = CSV.read('assets/dictionary-english.csv').map do |word|
-		word
+		word[0]
 	end
 	
-	return dictionary.include?(input_array) ? true : false
+	dictionary_grouped = dictionary.group_by do |word|
+		word[0]
+	end
+
+	return dictionary_grouped[input[0]].include?(input)
 end
