@@ -178,4 +178,26 @@ describe 'Adagrams' do
       expect(best_word[:score]).must_equal 18
     end
   end
+
+  describe 'is_in_english_dict?' do
+    it 'checks if input word is in english dictionary' do
+      input = 'hello'
+      expect(is_in_english_dict?(input)).must_equal true
+    end
+    
+    it 'checks if input is not in the english dictionary' do
+      input = 'asdf'
+      expect(is_in_english_dict?(input)).must_equal false
+    end
+
+    it 'calls ArgumentError on empty string' do
+      input = ' '
+      expect{is_in_english_dict?(input)}.must_raise ArgumentError
+    end
+
+    it "calls ArgumentError on non string inputs" do
+      input = "234sdf"
+      expect{is_in_english_dict?(input)}.must_raise ArgumentError
+    end
+  end
 end

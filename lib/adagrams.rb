@@ -67,7 +67,7 @@ def highest_score_from(words)
 		highest_score = set.values.max
 
 		tie = set.select { |k, v| v == highest_score}
-		if tie.length >= 2
+		if tie.length > 1
 			tie.each do |word, score|
 				if word.length > shortest_word_length 
 					if shortest_word_length == 0
@@ -97,9 +97,11 @@ def highest_score_from(words)
 end
 
 def is_in_english_dict?(input)
-	dictionary = CSV.read('assets/dictionary-english.csv', headers: true)
-	return	dictionary.include?(input)
-
+	
+	dictionary = CSV.read('assets/dictionary-english.csv')
+	dictionary = dictionary.flatten
+	return dictionary.include?(input)
+		
 end
 
-p is_in_english_dict?("hello")
+p is_in_english_dict?("dasfads")
