@@ -1,3 +1,5 @@
+require 'csv'
+
 # Wave 1
 # Draws ten letters for the user.
 def draw_letters
@@ -16,11 +18,26 @@ end
 # Checks if the word the user inputs is available in letters in hand.
 def uses_available_letters?(input, letters_in_hand)
   # Variable holding array of letters of chosen word.
-  letters = input.upcase.split('')
+  letters = (input.upcase.split(''))
+    # copy_hand = letters_in_hand.
+
+    # copy_hand.each_with_index do |copy_letter, index|
+    #   letters.each do |letter|
+    #     if copy_letter == letter
+    #       copy_hand.delete_at(index)
+    #     end
+    #   end
+    # end
+    # if (letters_in_hand.length - copy_hand.length) == letters.length
+    #   return true
+    # else  
+    #   return false
+    # end
   check_overlap = letters_in_hand & letters
-  check_overlap == letters ? true : false
+  check_overlap.sort == letters.sort ? true : false
 end
 
+puts uses_available_letters?("agar", ['A', 'B', 'A', 'F', 'R', 'G'])
 # Wave 3
 # Scores the word that the user has inputted.
 def score_word(word)
@@ -88,4 +105,11 @@ def tiebreaker(highest_word, word)
       highest_word = word
   end
   return highest_word
+end
+
+# Wave 5
+# Checks if input is a valid word in the English Dictionary.
+def is_in_english_dict?(input)
+  dictionary = File.open('assets/dictionary-english.csv').readlines.map(&:chomp)
+  dictionary.include?(input) ? true : false
 end
