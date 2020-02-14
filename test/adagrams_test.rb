@@ -181,24 +181,14 @@ describe 'Adagrams' do
 
   describe "is_in_english_dict method" do
     it 'if word appears in the dictionary' do
-      # arrange
       word = "banana"
-
-      # act
       is_in_dictionary = is_in_english_dict?(word)
-
-      # assert
       expect(is_in_dictionary).must_equal true
     end
 
     it 'if word does not appear in the dictionary' do
-      # arrange
       word = "gaenih"
-
-      # act
       is_in_dictionary = is_in_english_dict?(word)
-
-      # assert
       expect(is_in_dictionary).must_equal false
     end
   end
