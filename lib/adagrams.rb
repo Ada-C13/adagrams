@@ -95,6 +95,8 @@ def score_word(word)
   return score
 end
 
+
+
 # Wave 4
 # method has one parameter (word)
 # returns a hash (winning word, score) the highest scoring word
@@ -115,27 +117,36 @@ def highest_score_from(words)
   all_highscores = all_scores.select{|word_with_score| word_with_score[:score] == highest_score[:score]}
   puts "This is ALL the words that match high score: #{all_highscores}"
   
-  words = []
+  tied_words = []
   all_highscores.each do |hash|
-    words << hash[:word]
+    tied_words << hash[:word]
   end
 
-  puts "This is our array of just words: #{words}"
-  all_tens = words.select{|word| word.length == 10}
+  winning_word = break_ties(tied_words)
+
+  puts "This is our winning word: #{winning_word}"
+  return {:word => winning_word, :score => (highest_score[:score])}
+end
+
+# method break_ties applies tie-breaking logic to a set of words with the same score
+# parameter: array of words that share the same score
+# returns the resulting winning word after tie-breaking rules have been applied
+def break_ties(tied_words)
+  puts "This is our array of just words: #{tied_words}"
+  all_tens = tied_words.select{|word| word.length == 10}
 
   winning_word = ""
   if all_tens.size >= 1 
     winning_word = all_tens[0]
   else
-    all_smallest = words.min_by{|word| word.length}
+    all_smallest = tied_words.min_by{|word| word.length}
     if all_smallest.class == Array 
       winning_word = all_smallest[0]
     else
       winning_word = all_smallest
     end
   end
-  puts "This is our winning word: #{winning_word}"
-  return {:word => winning_word, :score => (highest_score[:score])}
+  return winning_word
 end
 
 # wave 5
