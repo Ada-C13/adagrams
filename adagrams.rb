@@ -3,7 +3,7 @@
 
 # Gems
 require "minitest"
-
+require  'pry'
 # require "minitest-reporters"
 # require "minitest-skip"
 
@@ -33,7 +33,7 @@ def draw_letters
         hand = random_hash.map do |letter, quantity|
             letter.to_s
         end
-   
+    binding.pry
     return hand
 end 
 
@@ -92,46 +92,36 @@ end
 def highest_score_from(words, score_word = :score_word)
     
     highest_hash = {}
+
     # create a hash of the words and their scores 
     words.each do |word| 
-        #highest_hash.merge!("#{word}": score_word(word.upcase))  
-        highest_hash[word] = score_word(word.upcase) 
+        highest_hash.merge!("#{word}": score_word(word.upcase))  
     end
+
     # ------------------------------------------------ our attempt to integrate logic, not currently working
 
     shortest_word_length = words[0].length 
     highest_scored_word = ""
     highest_score = 0
-
+    
     # we want to be able to iterate through esach of the tied highest words and pull out the winner of the tie
     highest_hash.each do |word, score|
         #will return word if greater than 10 automatically 
-        if word.length == 10
-            highest_scored_word = word
+        if word.to_s.length == 10
+            highest_scored_word = word.to_s
             highest_score = score
-            return {highest_scored_word => highest_score}
+            break
         else 
-
-            # if highest_score < score 
-            #     highest_score = score 
-            #     highest_scored_word = word
-            # elsif highest_score == score 
-            #     if highest_scored_word.length < word.length
-            #         return {highest_scored_word => highest_score}
-            #     else highest_scored_word.length > word.length
-            #          return {word => score}
-            #     end 
-            # end 
-            # iword.to_s.length <= shortest_word_length 
+            if word.to_s.length <= shortest_word_length 
                 
-            #     highest_scored_word = word.to_s
-            #     highest_score = score 
-            #     return {highest_scored_word => highest_score}
-            # end 
+                highest_scored_word = word.to_s
+                highest_score = score 
+            end 
+            
         end 
     end 
-    #return {highest_scored_word => highest_score}
+    return {highest_scored_word => highest_score}
 end
 
 #uts uses_available_letters?("x", ["y", "e", "s"])
-puts highest_score_from(["x", "xx", "xxx", "xxxx"])
+puts draw_letters.to_s
