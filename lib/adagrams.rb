@@ -1,3 +1,10 @@
+# Adagrams
+# Lak & Diana
+
+# Dependencies
+require 'awesome_print'
+require 'csv'
+
 # Creating letter pool
 letter = ('A'..'Z').to_a
 quantity = [9, 2, 2, 4, 12, 2, 3, 2, 9, 1, 1, 4, 2, 6, 8, 2, 1, 6, 4, 6, 4, 2, 2, 1, 2, 1 ]
@@ -44,6 +51,13 @@ puts drawn_letters.join(', ')
 puts "Please provide a word that only uses the letters from the letter bank: "
 test_word = gets.chomp
 
+def is_in_english_dict? (input)
+  dictionary = CSV.read('../assets/dictionary-english.csv')
+  dictionary = dictionary.flatten
+  is_valid_word = dictionary.include?(input) 
+  return is_valid_word
+end
+
 # method to check whether word by user is in drawn letters
 def uses_available_letters? (input, letters_in_hand)
   input = input.upcase.chars
@@ -71,7 +85,11 @@ def uses_available_letters? (input, letters_in_hand)
   return is_valid
 end
 
+
+
 puts uses_available_letters?(test_word, drawn_letters)
+  
+
 
 # Wave (3)
 # method to calculate score
@@ -125,13 +143,7 @@ words << test_word
 score = score_word(test_word)
 scores << score
 
-# Do ya want to play again prompt
-# put as method
-# repeat through game wave 1 - 3
-
-# use until loop/while 
-# use keyword arguments? example, how many times would you like to play again?
-# def play_again (how_many_times: )
+# Do you want to play again prompt
 puts "Would you like to play again? Enter y to play again."
 answer = gets.chomp
 
@@ -214,3 +226,4 @@ def highest_score_from (words)
 end
 
 puts highest_score_from(words)
+
