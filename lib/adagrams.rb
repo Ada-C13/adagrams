@@ -125,6 +125,6 @@ end
 
 # method to determine if word is in the english dictionary
 def is_in_english_dict?(input)
-  csv_data = CSV.parse(File.read("assets/dictionary-english.csv"), headers: true).by_col[0]
+  csv_data = CSV.read("assets/dictionary-english.csv", headers: true).by_col[0]
   return csv_data.include?(input.downcase)
 end
