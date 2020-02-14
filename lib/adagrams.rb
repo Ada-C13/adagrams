@@ -8,32 +8,13 @@ require "minitest"
 # WAVE 1
 
 def draw_letters 
-  letter_pool = {
-        #letter => quantity 
-    :A => 9, :B => 2,:C => 2, :D => 4,:E => 12,:F => 2,
-    :G => 3,:H => 2,:I => 9,:J => 1,:K => 1,:L => 4,:M => 2,:N => 6,
-    :O => 8,:P => 2,:Q => 1,:R => 6,:S => 4,:T => 6,:U => 4,:V => 2,
-    :W => 2, :X => 1,:Y => 2,:Z => 1
-    }
-
-    # Create a hand
-  random_hash =  letter_pool.to_a.sample(10).to_h
-    # puts random_hash
-    # Subtract letter that has been used from the letter pool
-  random_hash.each do |key, value|
-    if random_hash[key] == letter_pool[key] && letter_pool[key] > 1
-        letter_pool[key] = value - 1
-    else
-        letter_pool.delete(key)
-    end
-    end
-    
-    # Create hand array
-  hand = random_hash.map do |letter, quantity|
-      letter.to_s
-  end
-   
-  return hand
+  letter_pool =  ["A", "A", "A", "A", "A", "A", "A", "A", "A", "B", "B", "C", "C", "D", "D", "D", "D", "E", "E","E", "E","E", "E" ,"E", "E","E", "E", "E", "E", 
+    "F", "F", "G", "G", "G", "H", "H", "I", "I", "I", "I", "I", "I", "I", "I", "I", "J", "K", "L", "L", "L", "L", "M", "M", "N", "N", "N", "N", "N", "N", 
+    "O", "O", "O", "O", "O", "O", "O", "O", "P", "P", "Q", "R", "R", "R", "R", "R", "R", "S", "S", "S", "S",
+    "T", "T", "T", "T",  "T", "T", "U", "U", "U", "U", "V", "V", "W", "W", "X", "Y", "Y", "Z"
+  ]
+  random_hash =  letter_pool.sample(10)
+  return random_hash
 end 
 
 # WAVE 2
