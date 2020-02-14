@@ -26,9 +26,9 @@ def score_word(word)
     score += 8
   end
   word = word.upcase.split('')
-  # split word into characters
+  
   word.each do |letter|
-    # use a c statement to add points to score variable
+    
     case letter
     when "A", "E", "I", "O", "U", "L", "N", "R", "S", "T"
       score += 1
@@ -46,13 +46,11 @@ def score_word(word)
       score += 10
     end
   end
+  
   return score
 end
 
-# returns a hash of word scores
-# may be useful in determining when to run tie_breaker
-# if score_storage_hash.values != score_storage_hash.values.uniq, 
-# then run tie_breaker?
+# Wave 4 - method for storing all user input
 def word_scores(words)
   score_storage_hash = {}
   words.each do |word|
@@ -61,8 +59,7 @@ def word_scores(words)
   return score_storage_hash
 end
 
-# possible tie break method to invoke in highest_score_from method?
-# ALL THE SCORES IN HERE ARE THE SAME SO THE SCORE DOES NOT MATTER
+# Wave 4 - method for breaking ties
 def tie_breaker(words)
   ten_letter_word_array = []
   tie_scores_array = []
@@ -87,21 +84,13 @@ def tie_breaker(words)
   return winning_hash
 end
 
-# Wave 4 - determines winning word, accounting for ties
+# Wave 4 - determines highest score, and if needed invokes tie_breaker
 def highest_score_from(words)
   high_score_hash = {}
-  high_score = 0
-  winning_word = ""
-  tie_breaking_array = []
   
-  # look at each word, invoke score_word method, set highest score as winning_word
-  words.each do |word|
-    if score_word(word) > high_score
-      high_score = score_word(word)
-      winning_word = word
-    end   
-  end
-  
+  high_score = word_scores(words).max_by { |word, score| score }[1]
+  winning_word = word_scores(words).max_by { |word, score| score }[0]
+
   if word_scores(words).values != word_scores(words).values.uniq
     # invoke tie_breaking method
     # if there are tied scores,
@@ -116,78 +105,15 @@ def highest_score_from(words)
   return high_score_hash
 end
   
-# words = ['WWW', 'MMMM']
-# best_word = highest_score_from words
-
-# puts best_word
   
+  high_score = 0
+  winning_word = ""
+  tie_breaking_array = []
   
-  
-  
-  # if tie_breaking_array[0].length > tie_breaking_array[1].length
-  #   winning_word = tie_breaking_array[1]
-  # elsif tie_breaking_array[1].length > tie_breaking_array[0].length
-  #   winning_word = tie_breaking_array[0]
-  # elsif tie_breaking_array[0].length == 10
-  #   winning_word = tie_breaking_array[0]
-  # elsif tie_breaking_array[1].length == 10
-  #   winning_word = tie_breaking_array[1]
-  # end
-  
-  # print draw_letters
-  
-  # 1st attempt wave 2
-  # def uses_available_letters?(input, letters_in_hand) # input = what the user enters; letters_in_hand = random letters from previous method
-  #   # if letters in hand includes all letters in input 
-  #   # and the counts of letters in inputs is less than
-  #   # or equal to the counts of letters in letters_in_hand
-  #   # returns true
-  #   split_input = input.downcase.split(//)
-  
-  #   split_input.each do |letter|
-  #     letter_count = letter.count
-  #     letter_in_hand_count = letter.count
-  #       if letter_count <= letter_in_hand_count 
-  #         return true
-  #       else 
-  #         return false
-  #       end
-  #     end
-  
-  
-  #   check_input_letters = (split_input - letters_in_hand)
-  #   if check_input_letters.empty? # && check_input_quantity 
-  #     return true
-  #   end
-  
-  
-  
-  # end
-  
-  #Things we deleted that were or were not working :)
-  # look at each word again, if there are any words that have a 
-  # score equal to the high score, store those in a tie breaking array
-  # should we make a new "tie break" method?
-  # words.each do |word|
-  #   if score_word(word) == high_score
-  #     tie_breaking_array << word
-  #   end
-  # end
-  
-  # # need to add logic that only runs this if tie_breaking_array 
-  # # length is greater than 1 (which may be a good reason to make another method!
-  # ten_letter_words = []
-  # shortest_words = [] # this would be more clear as tie_score_words
-  # tie_breaking_array.each do |word|
-    
-  #   if word.length == 10
-  #     ten_letter_words << word
-      
-  #     shortest_words << shortest_words.min
-  #   end
-  # end
-  
-  # if ten_letter_words[0] (# is truthy)
-  #   winning_word = ten_letter_word[0]
-  # else winning_word = shortest_words.min_by { |word| word.length }
-  # end
+  look at each word, invoke score_word method, set highest score as winning_word
+  words.each do |word|
+    if score_word(word) > high_score
+      high_score = score_word(word)
+      winning_word = word
+    end   
+  end
