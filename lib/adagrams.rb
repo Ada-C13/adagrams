@@ -45,17 +45,25 @@ end
 #wave 2
 def uses_available_letters?(input, letters_in_hand)
   input_splitted = input.split ""
-  selected_letters = []
+  
+  selected_letters = [].replace(letters_in_hand)
+
   input_splitted.each do |letter|
-    if letters_in_hand.include? letter
-      selected_letters << letter
-      letters_in_hand = letters_in_hand - selected_letters
+    if selected_letters.include? letter
+      # selected_letters << letter
+      where_is_my_letter = selected_letters.find_index(letter)
+      selected_letters.delete_at(where_is_my_letter)
     else
       return false
     end
   end
   return true
 end
+
+uses_available_letters?("apple", ["a", "p", "a", "p", "e", "l", "z", "k", "a", "a"])
+
+
+
 
 #wave 3
 def score_word(word)
@@ -114,9 +122,16 @@ def highest_score_from(words)
 end
 
 #wave 5
-require 'csv'
-require 'awesome_print'
+require "csv"
+require "awesome_print"
 
-# is_in_english_dict?(input)
-words = CSV.read('../assets/dictionary-english.csv')
-ap words 
+def is_in_english_dict?(input)
+  words = CSV.read("./assets/dictionary-english.csv").each do |word|
+    if word.include? input
+      return true
+    end
+  end
+  return false
+end
+
+
