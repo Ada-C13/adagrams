@@ -156,11 +156,10 @@ end
 
 # Wave 5.
 
-
-
 def is_in_english_dict?(input)
 
-  dictionary = CSV.read("../assets/dictionary-english.csv")
+  dictionary_path = File.join(File.dirname(__FILE__), "../assets/dictionary-english.csv")
+  dictionary = CSV.read(dictionary_path)
   input = input.downcase.split
 
   return dictionary.include?(input)
