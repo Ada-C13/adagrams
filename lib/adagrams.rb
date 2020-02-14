@@ -52,15 +52,15 @@ def draw_letters
 end
 
 # method to determine if the letters in the user input are in the array of chosen letters
-def uses_available_letters?(input, chosen_letters)
-  # create a clone of the chosen_letters array so the original does not get altered
-  chosen_letters_array_to_manipulate = chosen_letters.clone  
+def uses_available_letters?(input, letters_in_hand)
+  # create a clone of the letters_in_hand array so the original does not get altered
+  letters_in_hand_array_to_manipulate = letters_in_hand.clone  
   input_split_letters = input.upcase.split("")
   
-  # loop through each letter of user input and check if it's in the chosen_letters array
+  # loop through each letter of user input and check if it's in the letters_in_hand array
   input_split_letters.each do |letter|
-    if chosen_letters_array_to_manipulate.include?(letter)
-      chosen_letters_array_to_manipulate.delete_at(chosen_letters_array_to_manipulate.index(letter))
+    if letters_in_hand_array_to_manipulate.include?(letter)
+      letters_in_hand_array_to_manipulate.delete_at(letters_in_hand_array_to_manipulate.index(letter))
     else
       return false
     end
