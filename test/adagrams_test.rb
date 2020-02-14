@@ -191,5 +191,16 @@ describe 'Adagrams' do
       is_in_dictionary = is_in_english_dict?(word)
       expect(is_in_dictionary).must_equal false
     end
+
+    it 'check if word is downcase' do
+      word = "BANANA"
+      weird_word = "bAnANas"
+
+      is_in_dictionary = is_in_english_dict?(word)
+      expect(is_in_dictionary).must_equal true
+
+      is_in_dictionary = is_in_english_dict?(weird_word)
+      expect(is_in_dictionary).must_equal true
+    end
   end
 end
