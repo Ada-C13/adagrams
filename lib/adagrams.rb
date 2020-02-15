@@ -46,7 +46,6 @@ end
 
 def uses_available_letters?(input, letters_in_hand)
   word = input.upcase.chars
-  result = true
   word.each do |letter|
     if word.count(letter) > letters_in_hand.count(letter)
       return false
@@ -87,9 +86,12 @@ def highest_score_from(words)
   win_score = 0
   words.each do |current_word|
     current_score = score_word(current_word)
-      if current_score > win_score || (current_score == win_score && # current score wins or its a tie
-         (!(win_word.length == current_word.length || win_word.length == 10) && # is previous winning word 10 chars, or is it the same length as new word?
-          (current_word.length == 10 || current_word.length < win_word.length))) # check to see if current word is 10, then check for which is the smallest
+        # current score wins or its a tie
+      if current_score > win_score || (current_score == win_score &&
+        # is previous winning word 10 chars, or is it the same length as new word?
+         (!(win_word.length == current_word.length || win_word.length == 10) && 
+         # check to see if current word is 10, then check for which is the smallest
+          (current_word.length == 10 || current_word.length < win_word.length)))
           win_word = current_word
           win_score = current_score   
       end
