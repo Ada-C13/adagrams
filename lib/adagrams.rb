@@ -95,8 +95,6 @@ def score_word(word)
   return score
 end
 
-
-
 # Wave 4
 # method has one parameter (word)
 # returns a hash (winning word, score) the highest scoring word
