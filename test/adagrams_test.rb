@@ -116,7 +116,7 @@ describe 'Adagrams' do
       expect(score_word(words.first)).must_equal 12
       expect(score_word(words.last)).must_equal 12
 
-      best_word = highest_score_from words
+      best_word = highest_score_from(words)
 
       expect(best_word[:word]).must_equal 'WWW'
       expect(best_word[:score]).must_equal 12
