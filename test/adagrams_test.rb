@@ -178,4 +178,29 @@ describe 'Adagrams' do
       expect(best_word[:score]).must_equal 18
     end
   end
+
+  describe "is_in_english_dict method" do
+    it 'if word appears in the dictionary' do
+      word = "banana"
+      is_in_dictionary = is_in_english_dict?(word)
+      expect(is_in_dictionary).must_equal true
+    end
+
+    it 'if word does not appear in the dictionary' do
+      word = "gaenih"
+      is_in_dictionary = is_in_english_dict?(word)
+      expect(is_in_dictionary).must_equal false
+    end
+
+    it 'check if word is downcase' do
+      word = "BANANA"
+      weird_word = "bAnANas"
+
+      is_in_dictionary = is_in_english_dict?(word)
+      expect(is_in_dictionary).must_equal true
+
+      is_in_dictionary = is_in_english_dict?(weird_word)
+      expect(is_in_dictionary).must_equal true
+    end
+  end
 end
