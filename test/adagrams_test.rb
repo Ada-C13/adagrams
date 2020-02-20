@@ -42,7 +42,7 @@ describe 'Adagrams' do
       test_word = 'DOG'
 
       is_valid = uses_available_letters? test_word, drawn_letters
-
+      
       expect(is_valid).must_equal false
     end
 
