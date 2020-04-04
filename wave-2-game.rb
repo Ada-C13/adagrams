@@ -37,28 +37,28 @@ end
 
 def run_game
   display_welcome_message
-
+  
   should_continue = true
-
+  
   while should_continue
     puts "Let's draw 10 letters from the letter pool..."
-
+    
     letter_bank = draw_letters
     display_drawn_letters(letter_bank)
-
+    
     display_game_instructions
-
+    
     user_input_word = get_user_input
-
+    
     while ( !(uses_available_letters?(user_input_word, letter_bank)) )
       display_needs_valid_input_message
       user_input_word = get_user_input
     end
-
+    
     display_retry_instructions
     should_continue = get_user_input == "y"
   end
-
+  
   display_goodbye_message
 end
 
